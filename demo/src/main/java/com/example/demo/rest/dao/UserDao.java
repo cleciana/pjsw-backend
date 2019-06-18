@@ -13,5 +13,5 @@ public interface UserDao<T, ID> extends JpaRepository<User, String> {
 
     User save(User user);
 
-    User findById(String email);
+    User findByEmail(String email);
 }
