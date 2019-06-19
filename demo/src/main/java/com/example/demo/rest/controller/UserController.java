@@ -35,9 +35,9 @@ public class UserController {
         User user = this.userService.findById(id);
 
         if(user == null) {
-            throw new UserNotFoundException("User not found");
+            throw new UserNotFoundException("User not found.");
         }
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
     @PostMapping(value = "/")
@@ -47,27 +47,27 @@ public class UserController {
         if (newUser == null) {
             throw new InternalError("Something went wrong :/");
         }
-        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+        return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<User> delete(@PathVariable String id) {
         try {
             userService.delete(id);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<User>(HttpStatus.OK);
         } catch (Exception e) {
             throw new InternalError("Something went wrong");
         }
     }
 
     @PutMapping(value = "/")
-   public ResponseEntity<User> update(@RequestBody User user) {
+    public ResponseEntity<User> update(@RequestBody User user) {
        try {
            User updated = userService.update(user);
-           return new ResponseEntity<>(updated, HttpStatus.OK);
-       } catch (Exception e) {
+           return new ResponseEntity<User>(updated, HttpStatus.OK);
+        } catch (Exception e) {
            throw  new InternalError("Something went wrong");
-       }
-   }
+        }
+    }
 
 }
