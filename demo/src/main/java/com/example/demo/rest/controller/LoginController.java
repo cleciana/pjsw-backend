@@ -2,7 +2,7 @@ package com.example.demo.rest.controller;
 
 import java.util.Date;
 
-import com.example.demo.exception.user.InvalidPasswordException;
+import com.example.demo.exception.InvalidFieldException;
 import com.example.demo.exception.user.UserNotFoundException;
 import com.example.demo.rest.model.User;
 import com.example.demo.rest.service.UserService;
@@ -32,13 +32,22 @@ public class LoginController {
     public LoginResponse authenticate(@RequestBody User user) {
         User authUser = userService.findById(user.getEmail());
 
+        // Verifica se o usuário está cadastrado.
         if(authUser == null) {
             throw new UserNotFoundException("User not found.");
         }
-        if (!authUser.getPassword().equals(user.getPassword())) {
-            throw new  InvalidPasswordException("Wrong password.");
+
+        // Verifica se o campo login eh igual esta correto.
+        if(!authUser.getLogin().equals(user.getLogin())) {
+            throw new InvalidFieldException("Login invalid or incorrect. Try again.");
         }
 
+        // Checa se a senha recebida eh igual a cadastrada.
+        if (!authUser.getPassword().equals(user.getPassword())) {
+            throw new  InvalidFieldException("Password invalid or incorrect. Try again.");
+        }
+
+        // Por último, gera o token e retorna ao usuario.
         String token = Jwts.builder()
         .setSubject(authUser.getEmail())
         .signWith(SignatureAlgorithm.ES512, TOKEN_KEY)

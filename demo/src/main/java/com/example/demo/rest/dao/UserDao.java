@@ -2,8 +2,6 @@ package com.example.demo.rest.dao;
 
 import java.util.Optional;
 
-//import java.util.Optional;
-
 import com.example.demo.rest.model.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;

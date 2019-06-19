@@ -1,5 +1,6 @@
 package com.example.demo.rest.controller;
 
+import com.example.demo.exception.InvalidFieldException;
 import com.example.demo.exception.user.UserNotFoundException;
 import com.example.demo.rest.model.User;
 import com.example.demo.rest.service.UserService;
@@ -43,6 +44,10 @@ public class UserController {
     @PostMapping(value = "/")
     @ResponseBody
     public ResponseEntity<User> create(@RequestBody User user) {
+
+        if (userService.findById(user.getEmail()) != null) {
+            throw new InvalidFieldException("User already registered.");
+        }
         User newUser = userService.create(user);
         if (newUser == null) {
             throw new InternalError("Something went wrong :/");
@@ -56,7 +61,7 @@ public class UserController {
             userService.delete(id);
             return new ResponseEntity<User>(HttpStatus.OK);
         } catch (Exception e) {
-            throw new InternalError("Something went wrong");
+            throw new InternalError("Something went wrong :/");
         }
     }
 
@@ -66,7 +71,7 @@ public class UserController {
            User updated = userService.update(user);
            return new ResponseEntity<User>(updated, HttpStatus.OK);
         } catch (Exception e) {
-           throw  new InternalError("Something went wrong");
+           throw  new InternalError("Something went wrong :/");
         }
     }
 
