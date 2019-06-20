@@ -4,8 +4,8 @@ import java.util.Date;
 
 import com.example.demo.exception.InvalidFieldException;
 import com.example.demo.exception.user.UserNotFoundException;
-import com.example.demo.rest.model.User;
-import com.example.demo.rest.service.UserService;
+import com.example.demo.rest.model.Usuario;
+import com.example.demo.rest.service.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.Getter;
 
 /**
  * LoginController
@@ -26,11 +27,11 @@ public class LoginController {
     private final String TOKEN_KEY = "applepen";
 
     @Autowired
-    private UserService userService;
+    private UsuarioService userService;
 
     @PostMapping("/login")
-    public LoginResponse authenticate(@RequestBody User user) {
-        User authUser = userService.findById(user.getEmail());
+    public LoginResponse authenticate(@RequestBody Usuario user) {
+        Usuario authUser = userService.findById(user.getEmail());
 
         // Verifica se o usuário está cadastrado.
         if(authUser == null) {
@@ -59,6 +60,7 @@ public class LoginController {
 
     private class LoginResponse {
 
+        @Getter
         public String token;
 
         public LoginResponse(String token) {

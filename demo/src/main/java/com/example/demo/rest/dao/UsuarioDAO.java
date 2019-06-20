@@ -2,7 +2,7 @@ package com.example.demo.rest.dao;
 
 import java.util.Optional;
 
-import com.example.demo.rest.model.User;
+import com.example.demo.rest.model.Usuario;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,9 +11,9 @@ import org.springframework.stereotype.Repository;
  * UserDao
  */
 @Repository
-public interface UserDao<T, ID> extends JpaRepository<User, String> {
+public interface UsuarioDAO<T, ID> extends JpaRepository<Usuario, String> {
 
-    User save(User user);
+    Usuario save(Usuario user);
 
-    Optional<User> findById(String email);
+    Optional<Usuario> findById(String email);
 }

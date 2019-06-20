@@ -3,24 +3,24 @@ package com.example.demo.rest.service;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.exception.user.UserNotFoundException;
-import com.example.demo.rest.dao.UserDao;
-import com.example.demo.rest.model.User;
+import com.example.demo.rest.dao.UsuarioDAO;
+import com.example.demo.rest.model.Usuario;
 
 /**
  * UserService
  */
 @Service
-public class UserService {
+public class UsuarioService {
 
-    private final UserDao<User, String> UserDao;
+    private final UsuarioDAO<Usuario, String> uDao;
 
     /**
      * Construtor
      * 
      * @param UserDao
      */
-    public UserService(UserDao<User, String> UserDao) {
-        this.UserDao = UserDao;
+    public UsuarioService(UsuarioDAO<Usuario, String> UserDao) {
+        this.uDao = UserDao;
     }
 
     /**
@@ -31,8 +31,8 @@ public class UserService {
      * 
      * @return Retorna a Entidade 'User'
      */
-    public User create(User user) {
-        return this.UserDao.save(user);
+    public Usuario create(Usuario user) {
+        return this.uDao.save(user);
     }
 
     /**
@@ -43,20 +43,20 @@ public class UserService {
      * 
      * @return Retorna a Entidade User
      */
-    public User update(User userToUpdate) {
+    public Usuario update(Usuario userToUpdate) {
 
-        User user = this.UserDao.findById(userToUpdate.getEmail()).get();
+        Usuario user = this.uDao.findById(userToUpdate.getEmail()).get();
         if (user == null) {
             throw new UserNotFoundException("Could not update. User does not exist.");
         }
-        return this.UserDao.save(userToUpdate);
+        return this.uDao.save(userToUpdate);
     }
 
     public void delete(String email) {
-        this.UserDao.deleteById(email);
+        this.uDao.deleteById(email);
     }
 
-    public User findById(String email) {
-        return this.UserDao.findById(email).get();
+    public Usuario findById(String email) {
+        return this.uDao.findById(email).get();
     }
 }

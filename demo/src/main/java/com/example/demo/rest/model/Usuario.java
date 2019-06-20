@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 @Entity
 @AllArgsConstructor
-public class User {
+public class Usuario {
 
     @Id
     private String email;
@@ -22,7 +22,7 @@ public class User {
     private String lastName;
     private String password;
 
-    public User() {
+    public Usuario() {
 
     }
 

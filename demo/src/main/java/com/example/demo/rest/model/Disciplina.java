@@ -10,19 +10,18 @@ import lombok.Data;
 /**
  * Class, entidade que representa uma Disciplina
  */
-@Entity
 @Data
-public class Class {
+@Entity
+public class Disciplina {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
 
-    private Profile profile;
-    private String description;
+    private Perfil profile;
 
-    public Class(String description) {
-        this.description = description;
+    public Disciplina(String description) {
+        this.profile = new Perfil(description);
     }
 
 }

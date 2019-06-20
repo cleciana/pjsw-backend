@@ -2,8 +2,8 @@ package com.example.demo.rest.controller;
 
 import com.example.demo.exception.InvalidFieldException;
 import com.example.demo.exception.user.UserNotFoundException;
-import com.example.demo.rest.model.User;
-import com.example.demo.rest.service.UserService;
+import com.example.demo.rest.model.Usuario;
+import com.example.demo.rest.service.UsuarioService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,54 +22,54 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping({ "/v1/user" })
-public class UserController {
+public class UsuarioController {
 
-    private UserService userService;
+    private UsuarioService userService;
 
-    public UserController(UserService service) {
+    public UsuarioController(UsuarioService service) {
         this.userService = service;
     }
 
     @GetMapping(value = "/{id}")
     @ResponseBody
-    public ResponseEntity<User> findById(@PathVariable String id) {
-        User user = this.userService.findById(id);
+    public ResponseEntity<Usuario> findById(@PathVariable String id) {
+        Usuario user = this.userService.findById(id);
 
         if(user == null) {
             throw new UserNotFoundException("User not found.");
         }
-        return new ResponseEntity<User>(user, HttpStatus.OK);
+        return new ResponseEntity<Usuario>(user, HttpStatus.OK);
     }
 
     @PostMapping(value = "/")
     @ResponseBody
-    public ResponseEntity<User> create(@RequestBody User user) {
+    public ResponseEntity<Usuario> create(@RequestBody Usuario user) {
 
         if (userService.findById(user.getEmail()) != null) {
             throw new InvalidFieldException("User already registered.");
         }
-        User newUser = userService.create(user);
+        Usuario newUser = userService.create(user);
         if (newUser == null) {
             throw new InternalError("Something went wrong :/");
         }
-        return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
+        return new ResponseEntity<Usuario>(newUser, HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<User> delete(@PathVariable String id) {
+    public ResponseEntity<Usuario> delete(@PathVariable String id) {
         try {
             userService.delete(id);
-            return new ResponseEntity<User>(HttpStatus.OK);
+            return new ResponseEntity<Usuario>(HttpStatus.OK);
         } catch (Exception e) {
             throw new InternalError("Something went wrong :/");
         }
     }
 
     @PutMapping(value = "/")
-    public ResponseEntity<User> update(@RequestBody User user) {
+    public ResponseEntity<Usuario> update(@RequestBody Usuario user) {
        try {
-           User updated = userService.update(user);
-           return new ResponseEntity<User>(updated, HttpStatus.OK);
+        Usuario updated = userService.update(user);
+           return new ResponseEntity<Usuario>(updated, HttpStatus.OK);
         } catch (Exception e) {
            throw  new InternalError("Something went wrong :/");
         }
