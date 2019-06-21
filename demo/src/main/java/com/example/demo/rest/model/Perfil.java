@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import lombok.Data;
 
@@ -17,18 +17,17 @@ import lombok.Data;
 @Entity
 public class Perfil {
 
-    @Id
-    private String description;
-
+    private int id;
     private List<Integer> notas;
-    private Map<String, Integer> likes;
+    private int likes;
+
+    @OneToMany(mappedBy = "perfil")
     private Map<String, Comentario> comentários;
 
-    public Perfil(String description) {
-        this.description = description;
+    public Perfil() {
         this.notas = new ArrayList<>();
-        this.likes = new HashMap<>();
-       this.comentários = new HashMap<>();
+        this.likes = 0;
+        this.comentários = new HashMap<>();
     }
 
     public double getMean() {

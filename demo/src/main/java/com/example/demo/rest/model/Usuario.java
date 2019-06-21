@@ -5,6 +5,7 @@ import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * User
@@ -12,6 +13,7 @@ import lombok.Data;
 @Data
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 public class Usuario {
 
     @Id
@@ -21,9 +23,5 @@ public class Usuario {
     private String name;
     private String lastName;
     private String password;
-
-    public Usuario() {
-
-    }
 
 }

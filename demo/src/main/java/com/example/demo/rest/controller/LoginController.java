@@ -24,7 +24,7 @@ import lombok.Getter;
 @RequestMapping({"v1/auth"})
 public class LoginController {
 
-    private final String TOKEN_KEY = "applepen";
+    private final String TOKEN_KEY = "banana";
 
     @Autowired
     private UsuarioService userService;

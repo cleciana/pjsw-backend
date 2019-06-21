@@ -38,8 +38,8 @@ public class DisciplinaService {
         return this.disciplinaDao.findById(id);
     }
 
-    public List<Disciplina> getAllContains(String string) {
-        // continua nos prox capitulos
-        return null;
+	public List<Disciplina> getAll() {
+       return this.disciplinaDao.findAll();
     }
+    
 }
