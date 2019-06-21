@@ -2,6 +2,8 @@ package com.example.demo.rest.service;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 import com.example.demo.exception.user.UserNotFoundException;
 import com.example.demo.rest.dao.UsuarioDAO;
 import com.example.demo.rest.model.Usuario;
@@ -56,7 +58,7 @@ public class UsuarioService {
         this.uDao.deleteById(email);
     }
 
-    public Usuario findById(String email) {
-        return this.uDao.findById(email).get();
+    public Optional<Usuario> findById(String email) {
+        return this.uDao.findById(email);
     }
 }

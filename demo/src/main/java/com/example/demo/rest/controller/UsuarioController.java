@@ -1,5 +1,7 @@
 package com.example.demo.rest.controller;
 
+import java.util.Optional;
+
 import com.example.demo.exception.InvalidFieldException;
 import com.example.demo.exception.user.UserNotFoundException;
 import com.example.demo.rest.model.Usuario;
@@ -18,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * UserController, direciona as requisições para o UserService 
+ * UserController, direciona as requisições para o UserService
  */
 @RestController
 @RequestMapping({ "/v1/user" })
@@ -33,19 +35,20 @@ public class UsuarioController {
     @GetMapping(value = "/{id}")
     @ResponseBody
     public ResponseEntity<Usuario> findById(@PathVariable String id) {
-        Usuario user = this.userService.findById(id);
+        Optional<Usuario> user = this.userService.findById(id);
 
-        if(user == null) {
+        if(!user.isPresent()) {
             throw new UserNotFoundException("User not found.");
         }
-        return new ResponseEntity<Usuario>(user, HttpStatus.OK);
+        return new ResponseEntity<Usuario>(user.get(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/")
     @ResponseBody
     public ResponseEntity<Usuario> create(@RequestBody Usuario user) {
 
-        if (userService.findById(user.getEmail()) != null) {
+        Optional<Usuario> aux = userService.findById(user.getEmail());
+        if (aux.isPresent()) {
             throw new InvalidFieldException("User already registered.");
         }
         Usuario newUser = userService.create(user);

@@ -2,10 +2,10 @@ package com.example.demo.rest.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import lombok.Data;
@@ -17,11 +17,13 @@ import lombok.Data;
 @Entity
 public class Perfil {
 
+    @Id
     private int id;
-    private List<Integer> notas;
+
+    private ArrayList<Integer> notas;
     private int likes;
 
-    @OneToMany(mappedBy = "perfil")
+    @OneToMany
     private Map<String, Comentario> comentários;
 
     public Perfil() {

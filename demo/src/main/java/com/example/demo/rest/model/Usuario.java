@@ -3,7 +3,6 @@ package com.example.demo.rest.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +11,6 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
 public class Usuario {
 
@@ -23,5 +21,13 @@ public class Usuario {
     private String name;
     private String lastName;
     private String password;
+
+    public Usuario(String email, String login, String name, String lastName, String password) {
+        this.email = email;
+        this.login = login;
+        this.name = name;
+        this.lastName = lastName;
+        this.password = password;
+    }
 
 }

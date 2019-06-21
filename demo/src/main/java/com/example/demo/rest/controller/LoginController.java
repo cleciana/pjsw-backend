@@ -1,6 +1,7 @@
 package com.example.demo.rest.controller;
 
 import java.util.Date;
+import java.util.Optional;
 
 import com.example.demo.exception.InvalidFieldException;
 import com.example.demo.exception.user.UserNotFoundException;
@@ -21,7 +22,7 @@ import lombok.Getter;
  * LoginController
  */
 @RestController()
-@RequestMapping({"v1/auth"})
+@RequestMapping({ "v1/auth" })
 public class LoginController {
 
     private final String TOKEN_KEY = "banana";
@@ -31,27 +32,28 @@ public class LoginController {
 
     @PostMapping("/login")
     public LoginResponse authenticate(@RequestBody Usuario user) {
-        Usuario authUser = userService.findById(user.getEmail());
+        Optional<Usuario> authUser = userService.findById(user.getEmail());
 
         // Verifica se o usuário está cadastrado.
-        if(authUser == null) {
+        if(!authUser.isPresent()) {
             throw new UserNotFoundException("User not found.");
         }
 
+        Usuario usuario = authUser.get();
         // Verifica se o campo login eh igual esta correto.
-        if(!authUser.getLogin().equals(user.getLogin())) {
+        if(!usuario.getLogin().equals(user.getLogin())) {
             throw new InvalidFieldException("Login invalid or incorrect. Try again.");
         }
 
         // Checa se a senha recebida eh igual a cadastrada.
-        if (!authUser.getPassword().equals(user.getPassword())) {
+        if (!usuario.getPassword().equals(user.getPassword())) {
             throw new  InvalidFieldException("Password invalid or incorrect. Try again.");
         }
 
         // Por último, gera o token e retorna ao usuario.
         String token = Jwts.builder()
-        .setSubject(authUser.getEmail())
-        .signWith(SignatureAlgorithm.ES512, TOKEN_KEY)
+        .setSubject(usuario.getEmail())
+        .signWith(SignatureAlgorithm.HS512, TOKEN_KEY)
         .setExpiration(new Date(System.currentTimeMillis() + 1 * 60 * 1000))
         .compact();
 
