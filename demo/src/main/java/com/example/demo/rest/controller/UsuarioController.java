@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  * UserController, direciona as requisições para o UserService
  */
 @RestController
-@RequestMapping({ "/v1/user" })
+@RequestMapping({ "/v1/auth/user" })
 public class UsuarioController {
 
     private UsuarioService userService;

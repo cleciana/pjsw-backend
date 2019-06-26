@@ -33,4 +33,7 @@ public class Disciplina {
         this.description = description;
     }
 
+    public void addComentario(String usuario, String texto) {
+        this.profile.addComentario(usuario, texto);
+        }
 }

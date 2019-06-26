@@ -37,27 +37,6 @@ public class DisciplinaController {
     }
 
     /**
-     * Busca e retorna a disciplina pelo id
-     * 
-     * @param id
-     *      Inteiro, identificador de uma disciplina
-     * 
-     * @return
-     *      Retorna a disciplina identificada por id, se esta estiver cadastrada.
-     *      Caso contrario lanca uma excecao
-     */
-    @GetMapping(value = "/{id}")
-    @ResponseBody
-    public ResponseEntity<Disciplina> findById(@PathVariable int id) {
-        Disciplina auxClass = this.disciplinaService.findById(id);
-
-        if (auxClass == null) {
-            throw new ClassNotRegisteredException("Sorry, class does not exist.");
-        }
-        return new ResponseEntity<Disciplina>(auxClass, HttpStatus.OK);
-    }
-
-    /**
      * Retorna o perfil da disciplina identificada por {id}
      * 
      * @param id
@@ -70,7 +49,9 @@ public class DisciplinaController {
     @ResponseBody
     public ResponseEntity<Perfil> getProfile(@PathVariable int id) {
         Disciplina disciplina = this.disciplinaService.findById(id); 
-
+        if (disciplina == null) {
+            throw new ClassNotRegisteredException("Class does not exist.");
+        }
         return new ResponseEntity<Perfil>(disciplina.getProfile(), HttpStatus.OK);
     }
 }
