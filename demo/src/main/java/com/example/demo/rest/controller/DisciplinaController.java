@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * ClassController
  */
 @RestController
-@RequestMapping({"v1/disciplinas"})
+@RequestMapping({ "v1/disciplinas" })
 public class DisciplinaController {
 
     private DisciplinaService disciplinaService;
@@ -39,19 +40,24 @@ public class DisciplinaController {
     /**
      * Retorna o perfil da disciplina identificada por {id}
      * 
-     * @param id
-     *          Identificador numérico de uma disciplina
+     * @param id Identificador numérico de uma disciplina
      * 
-     * @return
-     *          Perfil com informacoes sobre a disciplina, como comentários, likes, notas, etc.
+     * @return Perfil com informacoes sobre a disciplina, como comentários, likes,
+     *         notas, etc.
      */
     @GetMapping(value = "/{id}-perfil")
     @ResponseBody
     public ResponseEntity<Perfil> getProfile(@PathVariable int id) {
-        Disciplina disciplina = this.disciplinaService.findById(id); 
+        Disciplina disciplina = this.disciplinaService.findById(id);
         if (disciplina == null) {
             throw new ClassNotRegisteredException("Class does not exist.");
         }
         return new ResponseEntity<Perfil>(disciplina.getProfile(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{string}")
+    @ResponseBody
+    public ResponseEntity<List<Disciplina>> getByString(@RequestBody String string) {
+        return null;
     }
 }

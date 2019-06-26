@@ -15,5 +15,4 @@ public interface DisciplinaDAO<T, ID> extends JpaRepository<Disciplina, Integer>
 
     Disciplina findById(int id);
 
-    
 }

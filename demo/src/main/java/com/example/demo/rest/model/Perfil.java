@@ -25,34 +25,20 @@ public class Perfil {
     @Id
     private int id;
 
-    private ArrayList<Integer> notas;
     private int likes;
 
     @OneToMany
     private Map<String, Comentario> comentários;
 
     public Perfil() {
-        this.notas = new ArrayList<>();
         this.likes = 0;
         this.comentários = new HashMap<>();
     }
 
-    public double getMean() {
-        return this.sum() / notas.size();
-    }
-
-    private int sum() {
-        int soma = 0;
-        for (int nota : notas) {
-            soma += nota;
-        }
-        return soma;
-    }
-
-	public void addComentario(String usuario, String texto) {
+    public void addComentario(String usuario, String texto) {
         Comentario comentario = new Comentario(usuario, texto);
         this.comentários.put(usuario, comentario);
-	}
+    }
 
     public ResponseEntity<List<Comentario>> meusComentarios(@RequestBody String name) {
         List<Comentario> list = new ArrayList<>();
