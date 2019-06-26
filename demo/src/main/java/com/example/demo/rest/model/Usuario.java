@@ -17,14 +17,12 @@ public class Usuario {
     @Id
     private String email;
 
-    private String login;
     private String name;
     private String lastName;
     private String password;
 
-    public Usuario(String email, String login, String name, String lastName, String password) {
+    public Usuario(String email, String name, String lastName, String password) {
         this.email = email;
-        this.login = login;
         this.name = name;
         this.lastName = lastName;
         this.password = password;

@@ -40,10 +40,6 @@ public class LoginController {
         }
 
         Usuario usuario = authUser.get();
-        // Verifica se o campo login eh igual esta correto.
-        if(!usuario.getLogin().equals(user.getLogin())) {
-            throw new InvalidFieldException("Login invalid or incorrect. Try again.");
-        }
 
         // Checa se a senha recebida eh igual a cadastrada.
         if (!usuario.getPassword().equals(user.getPassword())) {
