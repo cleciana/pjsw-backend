@@ -41,7 +41,7 @@ public class Perfil {
 	public void addComentario(String usuario, String texto) {
         Comentario comentario = new Comentario(usuario, texto);
         this.comentários.put(usuario, comentario);
-	}
+    }
 
     public ResponseEntity<List<Comentario>> meusComentarios(@RequestBody String name) {
         List<Comentario> list = new ArrayList<>();

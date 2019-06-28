@@ -26,7 +26,7 @@ import io.jsonwebtoken.Jwts;
  * ClassController
  */
 @RestController
-@RequestMapping({"v1/disciplinas"})
+@RequestMapping({ "v1/disciplinas" })
 public class DisciplinaController {
 
     private DisciplinaService disciplinaService;
@@ -38,11 +38,10 @@ public class DisciplinaController {
     /**
      * Retorna o perfil da disciplina identificada por {id}
      * 
-     * @param id
-     *          Identificador numérico de uma disciplina
+     * @param id Identificador numérico de uma disciplina
      * 
-     * @return
-     *          Perfil com informacoes sobre a disciplina, como comentários, likes, notas, etc.
+     * @return Perfil com informacoes sobre a disciplina, como comentários, likes,
+     *         notas, etc.
      */
     @GetMapping(value = "/{id}-perfil")
     @ResponseBody
@@ -66,5 +65,11 @@ public class DisciplinaController {
         List<Disciplina> list = this.disciplinaService.findByName(string);
 
         return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{string}")
+    @ResponseBody
+    public ResponseEntity<List<Disciplina>> getByString(@RequestBody String string) {
+        return null;
     }
 }

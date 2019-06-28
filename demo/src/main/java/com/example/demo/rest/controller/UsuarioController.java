@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  * UserController, direciona as requisições para o UserService
  */
 @RestController
-@RequestMapping({ "/v1/user" })
+@RequestMapping({ "/v1/auth/user" })
 public class UsuarioController {
 
     private UsuarioService userService;
@@ -37,7 +37,7 @@ public class UsuarioController {
     public ResponseEntity<Usuario> findById(@PathVariable String id) {
         Optional<Usuario> user = this.userService.findById(id);
 
-        if(!user.isPresent()) {
+        if (!user.isPresent()) {
             throw new UserNotFoundException("User not found.");
         }
         return new ResponseEntity<Usuario>(user.get(), HttpStatus.OK);
@@ -76,11 +76,11 @@ public class UsuarioController {
 
     @PutMapping(value = "/")
     public ResponseEntity<Usuario> update(@RequestBody Usuario user) {
-       try {
-        Usuario updated = userService.update(user);
-           return new ResponseEntity<Usuario>(updated, HttpStatus.OK);
+        try {
+            Usuario updated = userService.update(user);
+            return new ResponseEntity<Usuario>(updated, HttpStatus.OK);
         } catch (Exception e) {
-           throw  new InternalError("Something went wrong :/");
+            throw new InternalError("Something went wrong :/");
         }
     }
 
