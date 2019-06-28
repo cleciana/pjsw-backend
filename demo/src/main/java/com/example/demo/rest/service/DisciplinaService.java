@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.demo.rest.dao.DisciplinaDAO;
 import com.example.demo.rest.model.Disciplina;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 /**
@@ -38,8 +39,8 @@ public class DisciplinaService {
         return this.disciplinaDao.findById(id);
     }
 
-	public List<Disciplina> getAll() {
-       return this.disciplinaDao.findAll();
-    }
+	public List<Disciplina> findByName(String name) {
+		return this.disciplinaDao.findByName(name);
+	}
     
 }

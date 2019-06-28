@@ -3,11 +3,15 @@ package com.example.demo.rest.controller;
 import java.util.Date;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+
 import com.example.demo.exception.InvalidFieldException;
 import com.example.demo.exception.user.UserNotFoundException;
 import com.example.demo.rest.model.Usuario;
 import com.example.demo.rest.service.UsuarioService;
 
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,6 +29,8 @@ import lombok.Getter;
 @RequestMapping({ "v1/auth" })
 public class LoginController {
 
+    // EXPIRATION_TIME = 10 dias
+    static final long EXPIRATION_TIME = 860_000_000;
     private final String TOKEN_KEY = "banana";
 
     @Autowired
@@ -50,10 +56,24 @@ public class LoginController {
         String token = Jwts.builder()
         .setSubject(usuario.getEmail())
         .signWith(SignatureAlgorithm.HS512, TOKEN_KEY)
-        .setExpiration(new Date(System.currentTimeMillis() + 1 * 60 * 1000))
+        .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
         .compact();
 
         return new LoginResponse(token);
+    }
+
+    public String getTokenEmail(HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+
+        String name = null;
+        if (token != null) {
+            name = Jwts.parser()
+            .setSigningKey(TOKEN_KEY)
+            .parseClaimsJws("Bearer")
+            .getBody()
+            .getSubject();
+        }
+        return name;
     }
 
     private class LoginResponse {

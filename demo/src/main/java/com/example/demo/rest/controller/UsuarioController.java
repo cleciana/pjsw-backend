@@ -43,6 +43,12 @@ public class UsuarioController {
         return new ResponseEntity<Usuario>(user.get(), HttpStatus.OK);
     }
 
+    /**
+     * Registra um novo usuario no banco de dados
+     * @param user
+     *      Instancia de Usuario
+     * @return
+     */
     @PostMapping(value = "/")
     @ResponseBody
     public ResponseEntity<Usuario> create(@RequestBody Usuario user) {

@@ -2,6 +2,7 @@ package com.example.demo.rest.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -26,27 +27,15 @@ public class Perfil {
     private int id;
 
     private ArrayList<Integer> notas;
-    private int likes;
+    private HashSet<String> likes;
 
     @OneToMany
     private Map<String, Comentario> comentários;
 
     public Perfil() {
         this.notas = new ArrayList<>();
-        this.likes = 0;
+        this.likes = new HashSet<>();
         this.comentários = new HashMap<>();
-    }
-
-    public double getMean() {
-        return this.sum() / notas.size();
-    }
-
-    private int sum() {
-        int soma = 0;
-        for (int nota : notas) {
-            soma += nota;
-        }
-        return soma;
     }
 
 	public void addComentario(String usuario, String texto) {
@@ -64,4 +53,8 @@ public class Perfil {
         }
         return new ResponseEntity<List<Comentario>>(list, HttpStatus.OK);
     }
+
+	public boolean getDeuLike(String username) {
+		return this.likes.contains(username);
+	}
 }
