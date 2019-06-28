@@ -3,7 +3,6 @@ package com.example.demo.rest.controller;
 import java.util.Date;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
 import com.example.demo.exception.InvalidFieldException;
@@ -11,7 +10,6 @@ import com.example.demo.exception.user.UserNotFoundException;
 import com.example.demo.rest.model.Usuario;
 import com.example.demo.rest.service.UsuarioService;
 
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -68,7 +66,7 @@ public class LoginController {
         String name = null;
         if (token != null) {
             name = Jwts.parser()
-            .setSigningKey(TOKEN_KEY)
+            .setSigningKey("banana")
             .parseClaimsJws("Bearer")
             .getBody()
             .getSubject();

@@ -1,5 +1,7 @@
 package com.example.demo.rest.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,7 +35,23 @@ public class Disciplina {
         this.description = description;
     }
 
+    /**
+     * Adiciona um comentario a essa disciplina.
+     * 
+     * @param usuario   Nome do usuario que escreveu o comentario.
+     * 
+     * @param texto     Conteudo do comentario.
+     */
     public void addComentario(String usuario, String texto) {
         this.profile.addComentario(usuario, texto);
-        }
+    }
+
+    /**
+     * Retorna uma Lista de Comentarios.
+     * 
+     * @return  List<Comentarios> comentarios feitos sobre essa disciplina.
+     */
+	public List<Comentario> getComentarios() {
+        return this.profile.getComentarios();
+	}
 }

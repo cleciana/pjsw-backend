@@ -5,7 +5,6 @@ import java.util.List;
 import com.example.demo.rest.dao.DisciplinaDAO;
 import com.example.demo.rest.model.Disciplina;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 /**
@@ -29,10 +28,6 @@ public class DisciplinaService {
      */
     public Disciplina create(Disciplina newClass) {
         return this.disciplinaDao.save(newClass);
-    }
-
-    public void delete(int id) {
-        this.disciplinaDao.deleteById(id);
     }
 
     public Disciplina findById(int id) {
