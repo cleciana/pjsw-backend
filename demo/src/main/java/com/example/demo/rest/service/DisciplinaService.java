@@ -35,7 +35,10 @@ public class DisciplinaService {
     }
 
 	public List<Disciplina> findByName(String name) {
-		return this.disciplinaDao.findByName(name);
+		return this.disciplinaDao.findByDescriptionIgnoreCaseContaining(name);
 	}
     
+    public Disciplina findByDescription(String string) {
+        return this.disciplinaDao.findByDescription(string);
+    }
 }

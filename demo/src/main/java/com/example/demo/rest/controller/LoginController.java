@@ -3,8 +3,6 @@ package com.example.demo.rest.controller;
 import java.util.Date;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.example.demo.exception.InvalidFieldException;
 import com.example.demo.exception.user.UserNotFoundException;
 import com.example.demo.rest.model.Usuario;
@@ -30,6 +28,7 @@ public class LoginController {
     // EXPIRATION_TIME = 10 dias
     static final long EXPIRATION_TIME = 860_000_000;
     private final String TOKEN_KEY = "banana";
+    private final String TOKEN_PREFIX = "Bearer";
 
     @Autowired
     private UsuarioService userService;
@@ -60,14 +59,13 @@ public class LoginController {
         return new LoginResponse(token);
     }
 
-    public String getTokenEmail(HttpServletRequest request) {
-        String token = request.getHeader("Authorization");
+    public String getTokenEmail(String token) {
 
-        String name = null;
+        String name = "";
         if (token != null) {
             name = Jwts.parser()
-            .setSigningKey("banana")
-            .parseClaimsJws("Bearer")
+            .setSigningKey(TOKEN_KEY)
+            .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
             .getBody()
             .getSubject();
         }

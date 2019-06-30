@@ -3,7 +3,6 @@ package com.example.demo.rest.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +11,6 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
 public class Comentario {
 
@@ -21,6 +19,9 @@ public class Comentario {
     
     private String content;
 
-    
+    public Comentario(String username, String content) {
+        this.username = username;
+        this.content = content;
+    }
     
 }

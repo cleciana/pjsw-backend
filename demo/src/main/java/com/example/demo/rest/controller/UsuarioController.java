@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.example.demo.exception.InvalidFieldException;
 import com.example.demo.exception.user.UserNotFoundException;
+import com.example.demo.responses.UsuarioResponse;
 import com.example.demo.rest.model.Usuario;
 import com.example.demo.rest.service.UsuarioService;
 
@@ -34,13 +35,14 @@ public class UsuarioController {
 
     @GetMapping(value = "/{id}")
     @ResponseBody
-    public ResponseEntity<Usuario> findById(@PathVariable String id) {
+    public ResponseEntity<UsuarioResponse> findById(@PathVariable String id) {
         Optional<Usuario> user = this.userService.findById(id);
 
         if (!user.isPresent()) {
-            throw new UserNotFoundException("User not found.");
+            throw new UserNotFoundException("Usuario nao encontrado.");
         }
-        return new ResponseEntity<Usuario>(user.get(), HttpStatus.OK);
+        Usuario u = user.get();
+        return new ResponseEntity<UsuarioResponse>(new UsuarioResponse(u.getName() + " " + u.getLastName(), u.getEmail()), HttpStatus.OK);
     }
 
     /**
@@ -51,17 +53,17 @@ public class UsuarioController {
      */
     @PostMapping(value = "/")
     @ResponseBody
-    public ResponseEntity<Usuario> create(@RequestBody Usuario user) {
+    public ResponseEntity<UsuarioResponse> create(@RequestBody Usuario user) {
 
         Optional<Usuario> aux = userService.findById(user.getEmail());
         if (aux.isPresent()) {
-            throw new InvalidFieldException("User already registered.");
+            throw new InvalidFieldException("Usuario ja existe.");
         }
         Usuario newUser = userService.create(user);
         if (newUser == null) {
-            throw new InternalError("Something went wrong :/");
+            throw new InternalError("Ops, algo deu errado :/");
         }
-        return new ResponseEntity<Usuario>(newUser, HttpStatus.CREATED);
+        return new ResponseEntity<>(new UsuarioResponse(newUser.getName() + " " + newUser.getLastName(), newUser.getEmail()), HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/{id}")
@@ -70,17 +72,17 @@ public class UsuarioController {
             userService.delete(id);
             return new ResponseEntity<Usuario>(HttpStatus.OK);
         } catch (Exception e) {
-            throw new InternalError("Something went wrong :/");
+            throw new InternalError("Ops, algo deu errado :/");
         }
     }
 
     @PutMapping(value = "/")
-    public ResponseEntity<Usuario> update(@RequestBody Usuario user) {
+    public ResponseEntity<UsuarioResponse> update(@RequestBody Usuario user) {
         try {
             Usuario updated = userService.update(user);
-            return new ResponseEntity<Usuario>(updated, HttpStatus.OK);
+            return new ResponseEntity<>(new UsuarioResponse(updated.getName() + " " + updated.getLastName(), updated.getEmail()), HttpStatus.OK);
         } catch (Exception e) {
-            throw new InternalError("Something went wrong :/");
+            throw new InternalError("Ops, algo deu errado :/");
         }
     }
 

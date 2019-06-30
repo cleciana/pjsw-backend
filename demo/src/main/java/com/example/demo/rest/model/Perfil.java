@@ -2,11 +2,9 @@ package com.example.demo.rest.model;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 import lombok.Data;
 
@@ -21,9 +19,9 @@ public class Perfil {
     private int id;
 
     private ArrayList<Integer> notas;
+
     private HashSet<String> likes;
 
-    @OneToMany
     private ArrayList<Comentario> comentarios;
 
     public Perfil() {
@@ -36,13 +34,12 @@ public class Perfil {
 		return this.likes.contains(username);
     }
     
-	public void addComentario(String usuario, String texto) {
-        Comentario comentario = new Comentario(usuario, texto);
+	public void addComentario(Comentario comentario) {
         this.comentarios.add(comentario);
     }
 
-    public List<Comentario> meusComentarios(String name) {
-        List<Comentario> list = new ArrayList<>();
+    public ArrayList<Comentario> meusComentarios(String name) {
+        ArrayList<Comentario> list = new ArrayList<>();
 
         for (Comentario c : this.comentarios) {
             if (c.getUsername().equals(name)) {
@@ -51,5 +48,12 @@ public class Perfil {
         }
         return list;
     }
+
+	public void like(String name) {
+        if (this.likes.contains(name)) {
+            return;
+        }
+        this.likes.add(name);
+	}
 
 }

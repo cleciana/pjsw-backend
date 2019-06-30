@@ -26,7 +26,7 @@ public class Disciplina {
 
     @OneToOne
     @MapsId
-    private Perfil profile;
+    private Perfil profile = new Perfil();
 
     private String description;
 
@@ -42,8 +42,8 @@ public class Disciplina {
      * 
      * @param texto     Conteudo do comentario.
      */
-    public void addComentario(String usuario, String texto) {
-        this.profile.addComentario(usuario, texto);
+    public void addComentario(Comentario comentario) {
+        this.profile.addComentario(comentario);
     }
 
     /**
@@ -53,5 +53,11 @@ public class Disciplina {
      */
 	public List<Comentario> getComentarios() {
         return this.profile.getComentarios();
+	}
+    /**
+     * Adiciona um like a disciplina
+     */
+	public void like(String name) {
+        this.getProfile().like(name);
 	}
 }
