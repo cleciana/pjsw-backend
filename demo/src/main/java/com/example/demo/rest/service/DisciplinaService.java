@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class DisciplinaService {
 
-    private final DisciplinaDAO<Disciplina, Long> disciplinaDao;
+    private final DisciplinaDAO<Disciplina, Integer> disciplinaDao;
 
-    public DisciplinaService(DisciplinaDAO<Disciplina, Long> disciplinaDao) {
+    public DisciplinaService(DisciplinaDAO<Disciplina, Integer> disciplinaDao) {
         this.disciplinaDao = disciplinaDao;
     }
 
@@ -26,8 +26,8 @@ public class DisciplinaService {
      * 
      * @return Retorna a Entidade Disciplina(Class)
      */
-    public Disciplina create(Disciplina newClass) {
-        return this.disciplinaDao.save(newClass);
+    public Disciplina create(Disciplina disciplina) {
+        return this.disciplinaDao.save(disciplina);
     }
 
     public Disciplina findById(int id) {

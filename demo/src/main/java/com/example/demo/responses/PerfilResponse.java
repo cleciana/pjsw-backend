@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import com.example.demo.rest.model.Comentario;
-import com.example.demo.rest.model.Perfil;
+import com.example.demo.rest.model.Disciplina;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,18 +25,14 @@ public class PerfilResponse {
     @Id
     private int id;
     @OneToOne
-    private Perfil perfil;
+
     private int qtdLikes;
     private ArrayList<Comentario> meus;
 
-    public PerfilResponse(Perfil perfil, String username) {
-        this.perfil = perfil;
-        this.setDeuLike(this.userDeuLike(username));
-        this.qtdLikes = this.getPerfil().getLikes().size();
-        this.meus = perfil.meusComentarios(username);
+    public PerfilResponse(Disciplina disciplina, String username) {
+        this.setDeuLike(disciplina.deuLike(username));
+        this.qtdLikes = disciplina.getLikes().size();
+       //  comentarios que o usuario deu na disciplina
     }
 
-    private boolean userDeuLike(String username) {
-        return this.perfil.getDeuLike(username);
-    }
 }

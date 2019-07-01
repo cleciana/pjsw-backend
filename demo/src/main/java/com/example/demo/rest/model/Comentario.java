@@ -15,13 +15,24 @@ import lombok.NoArgsConstructor;
 public class Comentario {
 
     @Id
-    private String username;
-    
+    private int id;
+    private int disciplinaId;
+
+    private boolean deleted;
+    private String username;  
     private String content;
 
     public Comentario(String username, String content) {
         this.username = username;
         this.content = content;
+        this.deleted = false;
     }
     
+    public boolean isDeletd() {
+        return this.deleted == true;
+    }
+
+	public void setDisciplinaId(int id2) {
+        this.disciplinaId = id2;
+	}
 }
