@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 import com.example.demo.rest.model.Comentario;
 import com.example.demo.rest.model.Disciplina;
@@ -24,7 +23,6 @@ public class PerfilResponse {
 
     @Id
     private int id;
-    @OneToOne
 
     private int qtdLikes;
     private ArrayList<Comentario> meus;
@@ -32,7 +30,7 @@ public class PerfilResponse {
     public PerfilResponse(Disciplina disciplina, String username) {
         this.setDeuLike(disciplina.deuLike(username));
         this.qtdLikes = disciplina.getLikes().size();
-       //  comentarios que o usuario deu na disciplina
+        // comentarios que o usuario deu na disciplina
     }
 
 }

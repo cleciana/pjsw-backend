@@ -1,6 +1,7 @@
 package com.example.demo.responses;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,6 +14,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ComentarioResponse {
 
+    @Id
     private String username;
     private String content;
 }

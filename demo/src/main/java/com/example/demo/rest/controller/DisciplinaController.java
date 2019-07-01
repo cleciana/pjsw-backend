@@ -40,20 +40,28 @@ public class DisciplinaController {
      */
     @PostMapping(value = "/")
     @ResponseBody
-    public ResponseEntity<HttpStatus> create(@RequestHeader("Authorization") String token, @RequestBody Disciplina disciplina) {
+    public ResponseEntity<HttpStatus> create(@RequestHeader("Authorization") String token,
+            @RequestBody Disciplina disciplina) {
         Disciplina disciplina2 = this.disciplinaService.findByDescription(disciplina.getDescription());
 
         if (disciplina2 == null) {
-            Disciplina d = this.disciplinaService.create(disciplina);
-            if (d == null) {
-                throw new InternalError("Ops, algo deu errado.");
+            String name = new LoginController().getTokenEmail(token);
+            if (name != null) {
+                Disciplina d = this.disciplinaService.create(disciplina);
+                if (d == null) {
+                    throw new InternalError("Ops, algo deu errado.");
+                }
+            } else {
+                throw new UnauthorizedAccessException("Você não tem permissão. Por favor, faça login.");
             }
+
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     /**
-     * Retorna um objeto perfil que contem informacoes da disciplina identificada por {id}
+     * Retorna um objeto perfil que contem informacoes da disciplina identificada
+     * por {id}
      * 
      * @param id Identificador numérico de uma disciplina
      * 
@@ -62,8 +70,9 @@ public class DisciplinaController {
      */
     @GetMapping(value = "/{id}-perfil")
     @ResponseBody
-    public ResponseEntity<PerfilResponse> getProfile(@PathVariable int id, @RequestHeader("Authorization") String token) {
-        Disciplina disciplina = this.disciplinaService.findById(id); 
+    public ResponseEntity<PerfilResponse> getProfile(@PathVariable int id,
+            @RequestHeader("Authorization") String token) {
+        Disciplina disciplina = this.disciplinaService.findById(id);
         if (disciplina == null) {
             throw new ClassNotRegisteredException("Disciplina nao existe.");
         }
@@ -81,15 +90,15 @@ public class DisciplinaController {
      * Busca as disciplinas que contem em seu nome a string recebida.
      * 
      * @param string String recebida do usuario.
-     *      
-     * @return Retorna uma lista de disciplinas que contem o parametro string.     
+     * 
+     * @return Retorna uma lista de disciplinas que contem o parametro string.
      */
     @GetMapping(value = "/search-{string}")
     @ResponseBody
     public ResponseEntity<List<Disciplina>> getBysubString(@PathVariable String string) {
-            List<Disciplina> list = this.disciplinaService.findByName(string);
+        List<Disciplina> list = this.disciplinaService.findByName(string);
 
-            return new ResponseEntity<>(list, HttpStatus.OK);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @PostMapping(value = "/{id}-like")
@@ -102,12 +111,11 @@ public class DisciplinaController {
         String name = new LoginController().getTokenEmail(token);
         if (name != null) {
             disc.like(name);
-            return new ResponseEntity<>(new PerfilResponse(disc, name) ,HttpStatus.OK);
+            return new ResponseEntity<>(new PerfilResponse(disc, name), HttpStatus.OK);
 
-        }  else {
+        } else {
             throw new UnauthorizedAccessException("Você não tem permissão. Por favor, faça login.");
         }
     }
 
-   
 }
