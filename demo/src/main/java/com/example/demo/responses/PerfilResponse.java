@@ -2,9 +2,12 @@ package com.example.demo.responses;
 
 import com.example.demo.rest.model.Disciplina;
 
+import lombok.Data;
+
 /**
  * PerfilResponse
  */
+@Data
 public class PerfilResponse {
 
     private boolean deuLike;

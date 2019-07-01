@@ -27,9 +27,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class DisciplinaController {
 
     private DisciplinaService disciplinaService;
+    private LoginController loginController;
 
     public DisciplinaController(DisciplinaService service) {
         this.disciplinaService = service;
+        this.loginController = new LoginController();
     }
 
     /**
@@ -45,7 +47,7 @@ public class DisciplinaController {
         Disciplina disciplina2 = this.disciplinaService.findByDescription(disciplina.getDescription());
 
         if (disciplina2 == null) {
-            String name = new LoginController().getTokenEmail(token);
+            String name = loginController.getTokenEmail(token);
             if (name != null) {
                 Disciplina d = this.disciplinaService.create(disciplina);
                 if (d == null) {
@@ -76,12 +78,11 @@ public class DisciplinaController {
             throw new ClassNotRegisteredException("Disciplina nao existe.");
         }
         System.out.println("sdcvnsdvc");
-        String name = new LoginController().getTokenEmail(token);
+        String name = loginController.getTokenEmail(token);
         System.out.println(name);
         if (name != null) {
             PerfilResponse response = new PerfilResponse(disciplina, name);
             return new ResponseEntity<PerfilResponse>(response, HttpStatus.OK);
-            // return new ResponseEntity<>("svsdfvfdvfdv", HttpStatus.OK);
 
         } else {
             throw new UnauthorizedAccessException("Você não tem permissão. Por favor, faça login.");
@@ -95,7 +96,7 @@ public class DisciplinaController {
      * 
      * @return Retorna uma lista de disciplinas que contem o parametro string.
      */
-    @GetMapping(value = "/search-{string}")
+    @GetMapping(value = "/{string}")
     @ResponseBody
     public ResponseEntity<List<Disciplina>> getBysubString(@PathVariable String string) {
         List<Disciplina> list = this.disciplinaService.findByName(string);
@@ -103,14 +104,14 @@ public class DisciplinaController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/{id}-like")
+    @PostMapping(value = "/{id}")
     @ResponseBody
     public ResponseEntity<PerfilResponse> like(@PathVariable int id, @RequestHeader("Authorization") String token) {
         Disciplina disc = this.disciplinaService.findById(id);
         if (disc == null) {
             throw new ClassNotRegisteredException("Disciplina nao existe.");
         }
-        String name = new LoginController().getTokenEmail(token);
+        String name = loginController.getTokenEmail(token);
         if (name != null) {
             disc.like(name);
             return new ResponseEntity<>(new PerfilResponse(disc, name), HttpStatus.OK);
