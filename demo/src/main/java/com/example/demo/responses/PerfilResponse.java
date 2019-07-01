@@ -1,36 +1,45 @@
 package com.example.demo.responses;
 
-import java.util.ArrayList;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-import com.example.demo.rest.model.Comentario;
 import com.example.demo.rest.model.Disciplina;
-
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * PerfilResponse
  */
-@Data
-@Entity
-@NoArgsConstructor
 public class PerfilResponse {
 
     private boolean deuLike;
-
-    @Id
     private int id;
-
     private int qtdLikes;
-    private ArrayList<Comentario> meus;
 
     public PerfilResponse(Disciplina disciplina, String username) {
-        this.setDeuLike(disciplina.deuLike(username));
+        this.deuLike = disciplina.deuLike(username);
         this.qtdLikes = disciplina.getLikes().size();
-        // comentarios que o usuario deu na disciplina
     }
 
+    public PerfilResponse() {
+    }
+
+    public boolean getDeuLike() {
+        return this.deuLike;
+    }
+
+    public int getLikes() {
+        return this.qtdLikes;
+    }
+
+    public void setDeuLike(boolean bo) {
+        this.deuLike = bo;
+    }
+
+    public void setLikes(int ls) {
+        this.qtdLikes = ls;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

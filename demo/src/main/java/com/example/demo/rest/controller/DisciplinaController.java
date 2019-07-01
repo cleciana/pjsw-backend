@@ -54,7 +54,6 @@ public class DisciplinaController {
             } else {
                 throw new UnauthorizedAccessException("Você não tem permissão. Por favor, faça login.");
             }
-
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -68,7 +67,7 @@ public class DisciplinaController {
      * @return Perfil com informacoes sobre a disciplina, como comentários, likes,
      *         notas, etc.
      */
-    @GetMapping(value = "/{id}-perfil")
+    @GetMapping(value = "/{id}")
     @ResponseBody
     public ResponseEntity<PerfilResponse> getProfile(@PathVariable int id,
             @RequestHeader("Authorization") String token) {
@@ -76,10 +75,13 @@ public class DisciplinaController {
         if (disciplina == null) {
             throw new ClassNotRegisteredException("Disciplina nao existe.");
         }
+        System.out.println("sdcvnsdvc");
         String name = new LoginController().getTokenEmail(token);
+        System.out.println(name);
         if (name != null) {
             PerfilResponse response = new PerfilResponse(disciplina, name);
             return new ResponseEntity<PerfilResponse>(response, HttpStatus.OK);
+            // return new ResponseEntity<>("svsdfvfdvfdv", HttpStatus.OK);
 
         } else {
             throw new UnauthorizedAccessException("Você não tem permissão. Por favor, faça login.");
