@@ -2,10 +2,11 @@ package com.example.demo.rest.controller;
 
 import com.example.demo.exception.UnauthorizedAccessException;
 import com.example.demo.exception.comment.CommentNotFoundException;
-import com.example.demo.responses.ComentarioResponse;
+import com.example.demo.dto.ComentarioDTO;
 import com.example.demo.rest.model.Comentario;
 import com.example.demo.rest.service.ComentarioService;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,9 +27,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class ComentarioController {
 
     private ComentarioService comentarioService;
+    private ModelMapper mapper;
 
     public ComentarioController(ComentarioService comentarioService) {
         this.comentarioService = comentarioService;
+        this.mapper = new ModelMapper();
     }
     
     /**
@@ -54,12 +57,12 @@ public class ComentarioController {
     /**
      * Marca um comentario como deletado
      */
-    @DeleteMapping(value = "/")
+    @DeleteMapping(value = "/{id}")
     @ResponseBody
-    public ResponseEntity<ComentarioResponse> delete(@PathVariable int id) {
+    public ResponseEntity<ComentarioDTO> delete(@PathVariable int id) {
         Comentario com = this.comentarioService.findById(id);
         com.setDeleted(true);
-        return new ResponseEntity<>(new ComentarioResponse(com.getUsername(), ""), HttpStatus.OK);
+        return new ResponseEntity<>(mapper.map(com, ComentarioDTO.class), HttpStatus.OK);
     }
 
     /**
@@ -70,16 +73,16 @@ public class ComentarioController {
      */
     @GetMapping(value = "/{id}")
     @ResponseBody
-    public ResponseEntity<ComentarioResponse> getComentario(@PathVariable int id) {
+    public ResponseEntity<ComentarioDTO> getComentario(@PathVariable int id) {
         Comentario com = this.comentarioService.findById(id);
         if (com == null) {
             throw new CommentNotFoundException("Desculpe, este comentario não existe.");
         }
-        String name = com.getUsername();
+        ComentarioDTO comentario = mapper.map(com, ComentarioDTO.class);
         if (com.isDeleted()) {
-            return new ResponseEntity<>(new ComentarioResponse(name, ""), HttpStatus.OK);
+            comentario.setContent("");
+            return new ResponseEntity<>(comentario, HttpStatus.OK);
         }
-        ComentarioResponse res = new ComentarioResponse(name, com.getContent());
-        return new ResponseEntity<>(res, HttpStatus.OK);
+        return new ResponseEntity<>(comentario, HttpStatus.OK);
     }
 }

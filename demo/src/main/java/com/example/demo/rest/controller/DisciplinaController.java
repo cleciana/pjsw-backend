@@ -4,15 +4,17 @@ import java.util.List;
 
 import com.example.demo.exception.UnauthorizedAccessException;
 import com.example.demo.exception.disciplina.ClassNotRegisteredException;
-import com.example.demo.responses.PerfilResponse;
+import com.example.demo.dto.DisciplinaDTO;
 import com.example.demo.rest.model.Disciplina;
 import com.example.demo.rest.service.DisciplinaService;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,10 +30,12 @@ public class DisciplinaController {
 
     private DisciplinaService disciplinaService;
     private LoginController loginController;
+    private ModelMapper mapper;
 
     public DisciplinaController(DisciplinaService service) {
         this.disciplinaService = service;
         this.loginController = new LoginController();
+        this.mapper = new ModelMapper();
     }
 
     /**
@@ -42,52 +46,41 @@ public class DisciplinaController {
      */
     @PostMapping(value = "/")
     @ResponseBody
-    public ResponseEntity<HttpStatus> create(@RequestHeader("Authorization") String token,
+    public ResponseEntity<DisciplinaDTO> create(@RequestHeader("Authorization") String token,
             @RequestBody Disciplina disciplina) {
         Disciplina disciplina2 = this.disciplinaService.findByDescription(disciplina.getDescription());
 
         if (disciplina2 == null) {
             String name = loginController.getTokenEmail(token);
-            if (name != null) {
+
+            if (name != "") {
                 Disciplina d = this.disciplinaService.create(disciplina);
+
                 if (d == null) {
                     throw new InternalError("Ops, algo deu errado.");
                 }
             } else {
-                throw new UnauthorizedAccessException("Você não tem permissão. Por favor, faça login.");
+                throw new UnauthorizedAccessException("Voce nao tem permissao. Por favor, faca login.");
             }
         }
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(mapper.map(disciplina, DisciplinaDTO.class), HttpStatus.CREATED);
     }
 
-    /**
-     * Retorna um objeto perfil que contem informacoes da disciplina identificada
-     * por {id}
-     * 
-     * @param id Identificador numérico de uma disciplina
-     * 
-     * @return Perfil com informacoes sobre a disciplina, como comentários, likes,
-     *         notas, etc.
-     */
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/{id}perfil")
     @ResponseBody
-    public ResponseEntity<PerfilResponse> getProfile(@PathVariable int id,
-            @RequestHeader("Authorization") String token) {
-        Disciplina disciplina = this.disciplinaService.findById(id);
-        if (disciplina == null) {
+    public ResponseEntity<DisciplinaDTO> getDisciplina(@PathVariable int id, @RequestHeader("Authorization") String token) {
+        Disciplina disciplina2 = this.disciplinaService.findById(id);
+        String userEmail = loginController.getTokenEmail(token);
+
+        if (userEmail == "") {
+            throw new UnauthorizedAccessException("Voce nao tem permissao. Por favor, faca login.");
+        }
+        if (disciplina2 == null) {
             throw new ClassNotRegisteredException("Disciplina nao existe.");
         }
-        System.out.println("sdcvnsdvc");
-        String name = loginController.getTokenEmail(token);
-        System.out.println(name);
-        if (name != null) {
-            PerfilResponse response = new PerfilResponse(disciplina, name);
-            return new ResponseEntity<PerfilResponse>(response, HttpStatus.OK);
-
-        } else {
-            throw new UnauthorizedAccessException("Você não tem permissão. Por favor, faça login.");
-        }
+        return new ResponseEntity<>(mapper.map(disciplina2, DisciplinaDTO.class), HttpStatus.OK);
     }
+
 
     /**
      * Busca as disciplinas que contem em seu nome a string recebida.
@@ -104,21 +97,20 @@ public class DisciplinaController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/{id}")
+    @PutMapping(value = "/{id}")
     @ResponseBody
-    public ResponseEntity<PerfilResponse> like(@PathVariable int id, @RequestHeader("Authorization") String token) {
-        Disciplina disc = this.disciplinaService.findById(id);
-        if (disc == null) {
+    public ResponseEntity<DisciplinaDTO> likeDisciplina(@PathVariable int id, @RequestHeader("Authorization") String token) {
+        Disciplina disciplina2 = this.disciplinaService.findById(id);
+        String userEmail = loginController.getTokenEmail(token);
+
+        if (userEmail == "") {
+            throw new UnauthorizedAccessException("Voce nao tem permissao. Por favor, faca login.");
+        }
+        if (disciplina2 == null) {
             throw new ClassNotRegisteredException("Disciplina nao existe.");
         }
-        String name = loginController.getTokenEmail(token);
-        if (name != null) {
-            disc.like(name);
-            return new ResponseEntity<>(new PerfilResponse(disc, name), HttpStatus.OK);
-
-        } else {
-            throw new UnauthorizedAccessException("Você não tem permissão. Por favor, faça login.");
-        }
+        disciplina2.like(userEmail);
+        Disciplina disciplinaa = this.disciplinaService.update(disciplina2);
+        return new ResponseEntity<DisciplinaDTO>(mapper.map(disciplinaa, DisciplinaDTO.class), HttpStatus.OK);
     }
-
 }

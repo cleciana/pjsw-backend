@@ -2,6 +2,7 @@ package com.example.demo.exception;
 
 import java.util.Date;
 
+import com.example.demo.exception.comment.CommentNotFoundException;
 import com.example.demo.exception.disciplina.ClassNotRegisteredException;
 import com.example.demo.exception.user.UserNotFoundException;
 
@@ -38,6 +39,18 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(ClassNotRegisteredException.class)
     public ResponseEntity<CustomRestError> classNotFound(Exception exception, WebRequest request) {
+        CustomRestError error = new CustomRestError(new Date(), exception.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(error, new HttpHeaders(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(UnauthorizedAccessException.class)
+    public ResponseEntity<CustomRestError> notAuthorized(Exception exception, WebRequest request) {
+        CustomRestError error = new CustomRestError(new Date(), exception.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(error, new HttpHeaders(), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(CommentNotFoundException.class)
+    public ResponseEntity<CustomRestError> commentNotFound(Exception exception, WebRequest request) {
         CustomRestError error = new CustomRestError(new Date(), exception.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(error, new HttpHeaders(), HttpStatus.NOT_FOUND);
     }

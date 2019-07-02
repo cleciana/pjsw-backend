@@ -24,7 +24,7 @@ public class DisciplinaService {
      * 
      * @param user Uma instancia de Disciplina
      * 
-     * @return Retorna a Entidade Disciplina(Class)
+     * @return Retorna a Entidade Disciplina
      */
     public Disciplina create(Disciplina disciplina) {
         return this.disciplinaDao.save(disciplina);
@@ -41,4 +41,8 @@ public class DisciplinaService {
     public Disciplina findByDescription(String string) {
         return this.disciplinaDao.findByDescription(string);
     }
+
+	public Disciplina update(Disciplina disciplina) {
+        return this.disciplinaDao.save(disciplina);
+	}
 }

@@ -4,10 +4,11 @@ import java.util.Optional;
 
 import com.example.demo.exception.InvalidFieldException;
 import com.example.demo.exception.user.UserNotFoundException;
-import com.example.demo.responses.UsuarioResponse;
+import com.example.demo.dto.UsuarioDTO;
 import com.example.demo.rest.model.Usuario;
 import com.example.demo.rest.service.UsuarioService;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UsuarioController {
 
     private UsuarioService userService;
+    private ModelMapper mapper = new ModelMapper();
 
     public UsuarioController(UsuarioService service) {
         this.userService = service;
@@ -35,14 +37,14 @@ public class UsuarioController {
 
     @GetMapping(value = "/{id}")
     @ResponseBody
-    public ResponseEntity<UsuarioResponse> findById(@PathVariable String id) {
+    public ResponseEntity<UsuarioDTO> findById(@PathVariable String id) {
         Optional<Usuario> user = this.userService.findById(id);
 
         if (!user.isPresent()) {
             throw new UserNotFoundException("Usuario nao encontrado.");
         }
         Usuario u = user.get();
-        return new ResponseEntity<UsuarioResponse>(new UsuarioResponse(u.getName() + " " + u.getLastName(), u.getEmail()), HttpStatus.OK);
+        return new ResponseEntity<UsuarioDTO>(mapper.map(u, UsuarioDTO.class),  HttpStatus.OK);
     }
 
     /**
@@ -53,7 +55,7 @@ public class UsuarioController {
      */
     @PostMapping(value = "/")
     @ResponseBody
-    public ResponseEntity<UsuarioResponse> create(@RequestBody Usuario user) {
+    public ResponseEntity<UsuarioDTO> create(@RequestBody Usuario user) {
 
         Optional<Usuario> aux = userService.findById(user.getEmail());
         if (aux.isPresent()) {
@@ -63,24 +65,24 @@ public class UsuarioController {
         if (newUser == null) {
             throw new InternalError("Ops, algo deu errado :/");
         }
-        return new ResponseEntity<>(new UsuarioResponse(newUser.getName() + " " + newUser.getLastName(), newUser.getEmail()), HttpStatus.CREATED);
+        return new ResponseEntity<>(mapper.map(user, UsuarioDTO.class), HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Usuario> delete(@PathVariable String id) {
+    public ResponseEntity<HttpStatus> delete(@PathVariable String id) {
         try {
             userService.delete(id);
-            return new ResponseEntity<Usuario>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             throw new InternalError("Ops, algo deu errado :/");
         }
     }
 
     @PutMapping(value = "/")
-    public ResponseEntity<UsuarioResponse> update(@RequestBody Usuario user) {
+    public ResponseEntity<UsuarioDTO> update(@RequestBody Usuario user) {
         try {
             Usuario updated = userService.update(user);
-            return new ResponseEntity<>(new UsuarioResponse(updated.getName() + " " + updated.getLastName(), updated.getEmail()), HttpStatus.OK);
+            return new ResponseEntity<>(mapper.map(updated, UsuarioDTO.class), HttpStatus.OK);
         } catch (Exception e) {
             throw new InternalError("Ops, algo deu errado :/");
         }

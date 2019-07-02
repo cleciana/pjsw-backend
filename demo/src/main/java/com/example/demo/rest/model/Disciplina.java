@@ -24,6 +24,8 @@ public class Disciplina {
 
     private HashSet<String> likes;
     private String description;
+    private Boolean deuLike;
+    private Integer qtdLikes;
 
     public Disciplina(String description) {
         this.likes = new HashSet<>();
@@ -34,10 +36,18 @@ public class Disciplina {
      * Adiciona um like a disciplina
      */
 	public void like(String name) {
-        this.likes.add(name);
+        if (likes == null)
+         this.likes = new HashSet<>();
+
+        if (this.likes.contains(name)) 
+            this.likes.remove(name);
+
+        else {
+            this.likes.add(name);
+        }
 	}
 
-	public boolean deuLike(String username) {
-		return this.likes.contains(username);
-	}
+	public void deuLike(String username) {
+        this.setDeuLike(likes.contains(username));
+    }
 }
