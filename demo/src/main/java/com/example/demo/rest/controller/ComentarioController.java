@@ -23,15 +23,17 @@ import org.springframework.web.bind.annotation.RestController;
  * ComentarioController
  */
 @RestController
-@RequestMapping({ "vi/disciplinas/comentarios" })
+@RequestMapping({ "v1/comentarios" })
 public class ComentarioController {
 
     private ComentarioService comentarioService;
     private ModelMapper mapper;
+    private LoginController login;
 
     public ComentarioController(ComentarioService comentarioService) {
         this.comentarioService = comentarioService;
         this.mapper = new ModelMapper();
+        this.login = new LoginController();
     }
     
     /**
@@ -39,19 +41,20 @@ public class ComentarioController {
      */
     @PostMapping(value = "/{id}")
     @ResponseBody
-    public ResponseEntity<Comentario> addComentario(@RequestHeader("Authorization") String token, @PathVariable int id, @RequestBody Comentario comentario) {
-        Comentario com = this.comentarioService.findById(comentario.getId());
-        if (com == null) {
-            String name = new LoginController().getTokenEmail(token);
-            if (name != null) {
-                comentario.setDisciplinaId(id);
-                this.comentarioService.create(comentario);
+    public ResponseEntity<ComentarioDTO> addComentario(@RequestHeader("Authorization") String token, @PathVariable int id, @RequestBody Comentario comentario) {
+        String userString = this.login.getTokenEmail(token);
 
-            }   else {
-                throw new UnauthorizedAccessException("Você não tem permissão. Por favor, faça login.");
-            }
+        if (userString == "") {
+            throw new UnauthorizedAccessException("Voce nao tem permissao. Por favor, faca login.");
         }
-        return new ResponseEntity<>(comentario, HttpStatus.CREATED);
+        comentario.setUsername(userString);
+        comentario.setDisciplinaId(id);
+        Comentario com = this.comentarioService.create(comentario);
+
+        if (com == null) {
+            throw new InternalError("Ops, algo deu errado.");
+        }
+        return new ResponseEntity<ComentarioDTO>(mapper.map(comentario, ComentarioDTO.class), HttpStatus.CREATED);
     }
 
     /**
