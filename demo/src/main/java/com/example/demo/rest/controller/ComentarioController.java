@@ -65,7 +65,8 @@ public class ComentarioController {
     public ResponseEntity<ComentarioDTO> delete(@PathVariable int id) {
         Comentario com = this.comentarioService.findById(id);
         com.setDeleted(true);
-        return new ResponseEntity<>(mapper.map(com, ComentarioDTO.class), HttpStatus.OK);
+        Comentario comentario = this.comentarioService.update(com);
+        return new ResponseEntity<>(mapper.map(comentario, ComentarioDTO.class), HttpStatus.OK);
     }
 
     /**

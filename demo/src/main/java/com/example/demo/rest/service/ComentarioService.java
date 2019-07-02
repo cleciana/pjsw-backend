@@ -25,4 +25,8 @@ public class ComentarioService {
         return this.comentarioDao.findById(id);
     }
 
+	public Comentario update(Comentario com) {
+		return this.comentarioDao.save(com);
+	}
+
 }
