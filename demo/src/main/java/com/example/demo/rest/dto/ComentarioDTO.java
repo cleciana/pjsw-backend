@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.demo.rest.dto;
 
 /**
  * ComentarioResponse
@@ -6,8 +6,16 @@ package com.example.demo.dto;
 public class ComentarioDTO {
 
     private String username;
-    private String content;
+	private String content;
+	private int id;
 
+	public int getId() {
+		return this.id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getContent() {
 		return this.content;
@@ -24,5 +32,6 @@ public class ComentarioDTO {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
 
 }

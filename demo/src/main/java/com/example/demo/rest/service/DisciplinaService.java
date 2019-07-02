@@ -44,5 +44,9 @@ public class DisciplinaService {
 
 	public Disciplina update(Disciplina disciplina) {
         return this.disciplinaDao.save(disciplina);
-	}
+    }
+    
+    public List<Disciplina> findAllByLikes() {
+        return this.disciplinaDao.findAllOrderByqtdLikesAsc();
+    }
 }

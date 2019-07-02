@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import com.example.demo.exception.InvalidFieldException;
 import com.example.demo.exception.user.UserNotFoundException;
-import com.example.demo.dto.UsuarioDTO;
+import com.example.demo.rest.dto.UsuarioDTO;
 import com.example.demo.rest.model.Usuario;
 import com.example.demo.rest.service.UsuarioService;
 

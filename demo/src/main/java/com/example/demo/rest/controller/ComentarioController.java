@@ -2,9 +2,10 @@ package com.example.demo.rest.controller;
 
 import com.example.demo.exception.UnauthorizedAccessException;
 import com.example.demo.exception.comment.CommentNotFoundException;
-import com.example.demo.dto.ComentarioDTO;
+import com.example.demo.rest.dto.ComentarioDTO;
 import com.example.demo.rest.model.Comentario;
 import com.example.demo.rest.service.ComentarioService;
+import com.example.demo.rest.service.DisciplinaService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -41,7 +42,7 @@ public class ComentarioController {
      */
     @PostMapping(value = "/{id}")
     @ResponseBody
-    public ResponseEntity<ComentarioDTO> addComentario(@RequestHeader("Authorization") String token, @PathVariable int id, @RequestBody Comentario comentario) {
+    public ResponseEntity<ComentarioDTO> createComentario(@RequestHeader("Authorization") String token, @PathVariable int id, @RequestBody Comentario comentario) {
         String userString = this.login.getTokenEmail(token);
 
         if (userString == "") {
@@ -83,7 +84,7 @@ public class ComentarioController {
             throw new CommentNotFoundException("Desculpe, este comentario não existe.");
         }
         ComentarioDTO comentario = mapper.map(com, ComentarioDTO.class);
-        if (com.isDeleted()) {
+        if (com.wasDeletd()) {
             comentario.setContent("");
             return new ResponseEntity<>(comentario, HttpStatus.OK);
         }

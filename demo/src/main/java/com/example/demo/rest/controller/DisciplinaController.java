@@ -1,10 +1,11 @@
 package com.example.demo.rest.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.demo.exception.UnauthorizedAccessException;
 import com.example.demo.exception.disciplina.ClassNotRegisteredException;
-import com.example.demo.dto.DisciplinaDTO;
+import com.example.demo.rest.dto.DisciplinaDTO;
 import com.example.demo.rest.model.Disciplina;
 import com.example.demo.rest.service.DisciplinaService;
 
@@ -93,8 +94,22 @@ public class DisciplinaController {
     @ResponseBody
     public ResponseEntity<List<Disciplina>> getBysubString(@PathVariable String string) {
         List<Disciplina> list = this.disciplinaService.findByName(string);
-
         return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    
+    @GetMapping(value = "/")
+    @ResponseBody
+    public ResponseEntity<List<Disciplina>> rank(@RequestHeader String option) {
+        List<Disciplina> lista = new ArrayList<>();
+        
+        if (option.equals("likes")) {
+            lista = this.disciplinaService.findAllByLikes();
+
+        } else if (option.equals("comentarios")) {
+
+        }
+        return new ResponseEntity<>(lista, HttpStatus.OK);
     }
 
     @PutMapping(value = "/{id}")
