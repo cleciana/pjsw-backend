@@ -20,9 +20,8 @@ public class Comentario {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    private int disciplinaId;
+    private Integer disciplinaId;
 
-    private Integer respComentarioId;
     private boolean deleted;
     private String username;
     private String content;

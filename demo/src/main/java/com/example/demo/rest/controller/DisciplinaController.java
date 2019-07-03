@@ -1,6 +1,5 @@
 package com.example.demo.rest.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.example.demo.exception.UnauthorizedAccessException;
@@ -54,7 +53,7 @@ public class DisciplinaController {
         if (disciplina2 == null) {
             String name = loginController.getTokenEmail(token);
 
-            if (name != "") {
+            if (name != "" && name == "ADMIN") {
                 Disciplina d = this.disciplinaService.create(disciplina);
 
                 if (d == null) {
@@ -98,17 +97,27 @@ public class DisciplinaController {
     }
 
     
-    @GetMapping(value = "/")
+    @GetMapping(value = "/1")
     @ResponseBody
-    public ResponseEntity<List<Disciplina>> rank(@RequestHeader String option) {
-        List<Disciplina> lista = new ArrayList<>();
-        
-        if (option.equals("likes")) {
-            lista = this.disciplinaService.findAllByLikes();
+    public ResponseEntity<List<Disciplina>> rank1(@RequestHeader("Authorization") String token) {
+        String userMail = loginController.getTokenEmail(token);
 
-        } else if (option.equals("comentarios")) {
-
+        if (userMail == "") {
+            throw new UnauthorizedAccessException("Voce nao tem permissao. Por favor, faca login.");
         }
+        List<Disciplina> lista = this.disciplinaService.findAllByLikes();
+        return new ResponseEntity<>(lista, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/2")
+    @ResponseBody
+    public ResponseEntity<List<Disciplina>> rank2(@RequestHeader("Authorization") String token) {
+        String userMail = loginController.getTokenEmail(token);
+
+        if (userMail == "") {
+            throw new UnauthorizedAccessException("Voce nao tem permissao. Por favor, faca login.");
+        }
+        List<Disciplina> lista = this.disciplinaService.findByComments();
         return new ResponseEntity<>(lista, HttpStatus.OK);
     }
 

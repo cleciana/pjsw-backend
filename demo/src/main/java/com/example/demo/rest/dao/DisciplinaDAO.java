@@ -19,10 +19,12 @@ public interface DisciplinaDAO<T, ID> extends JpaRepository<Disciplina, Integer>
 
     Disciplina findById(int id);
 
-	List<Disciplina> findByDescriptionIgnoreCaseContaining(String description);
-
+    List<Disciplina> findByDescriptionIgnoreCaseContaining(String description);
+    
     @Query(value = "Select d from Disciplina d where d.description = :description")
     Disciplina findByDescription(@Param("description") String description);
 
-    List<Disciplina> findAllOrderByqtdLikesAsc();
+    @Query(value = "SELECT Disciplina.description, COUNT(Comentario.disciplina_Id) AS Comentarios FROM Comentario RIGHT JOIN Disciplina ON Comentario.disciplina_Id=Disciplina.id GROUP BY description", nativeQuery = true)
+    List<T> OrderByComentariosDesc();
+
 }

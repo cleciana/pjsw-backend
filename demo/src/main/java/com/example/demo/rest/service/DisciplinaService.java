@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.demo.rest.dao.DisciplinaDAO;
 import com.example.demo.rest.model.Disciplina;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 /**
@@ -47,6 +48,10 @@ public class DisciplinaService {
     }
     
     public List<Disciplina> findAllByLikes() {
-        return this.disciplinaDao.findAllOrderByqtdLikesAsc();
+        return this.disciplinaDao.findAll(new Sort(Sort.Direction.DESC, "qtdLikes"));
+    }
+
+    public List<Disciplina> findByComments() {
+        return this.disciplinaDao.OrderByComentariosDesc();
     }
 }

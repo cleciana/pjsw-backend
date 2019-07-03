@@ -1,11 +1,12 @@
 package com.example.demo.rest.controller;
 
+//import java.util.List;
+
 import com.example.demo.exception.UnauthorizedAccessException;
 import com.example.demo.exception.comment.CommentNotFoundException;
 import com.example.demo.rest.dto.ComentarioDTO;
 import com.example.demo.rest.model.Comentario;
 import com.example.demo.rest.service.ComentarioService;
-import com.example.demo.rest.service.DisciplinaService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -40,9 +41,9 @@ public class ComentarioController {
     /**
      * Adiciona um comentario a disciplina identificada por {id}
      */
-    @PostMapping(value = "/{id}")
+    @PostMapping(value = "/")
     @ResponseBody
-    public ResponseEntity<ComentarioDTO> createComentario(@RequestHeader("Authorization") String token, @PathVariable int id, @RequestBody Comentario comentario) {
+    public ResponseEntity<ComentarioDTO> createComentario(@RequestHeader("Authorization") String token, @RequestBody int id, @RequestBody Comentario comentario) {
         String userString = this.login.getTokenEmail(token);
 
         if (userString == "") {

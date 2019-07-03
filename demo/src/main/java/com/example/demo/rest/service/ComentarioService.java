@@ -1,5 +1,7 @@
 package com.example.demo.rest.service;
 
+import java.util.List;
+
 import com.example.demo.rest.dao.ComentarioDAO;
 import com.example.demo.rest.model.Comentario;
 
@@ -29,4 +31,7 @@ public class ComentarioService {
 		return this.comentarioDao.save(com);
 	}
 
+    public List<Comentario> findByDisciplinaId() {
+        return this.comentarioDao.findAll();
+    }
 }
