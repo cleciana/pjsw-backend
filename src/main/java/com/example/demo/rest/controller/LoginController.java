@@ -3,6 +3,8 @@ package com.example.demo.rest.controller;
 import java.util.Date;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletResponse;
+
 import com.example.demo.exception.InvalidFieldException;
 import com.example.demo.exception.user.UserNotFoundException;
 import com.example.demo.rest.model.Usuario;
@@ -39,7 +41,7 @@ public class LoginController {
 
     @ApiOperation(value = "Recebe os dados do usuario e retorna um token de autenticacao.")
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> authenticate(@RequestBody Usuario user) {
+    public ResponseEntity<LoginResponse> authenticate(@RequestBody Usuario user, HttpServletResponse response) {
         Optional<Usuario> authUser = userService.findById(user.getEmail());
 
         // Verifica se o usuário está cadastrado.
@@ -61,6 +63,7 @@ public class LoginController {
         .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
         .compact();
 
+        response.addHeader("Access-Control-Allow-Origin", "*");
         ResponseEntity<LoginResponse> res = new ResponseEntity<LoginResponse>(new LoginResponse(token) , HttpStatus.OK);
         return res ;
     }
