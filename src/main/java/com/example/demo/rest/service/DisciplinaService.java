@@ -57,12 +57,12 @@ public class DisciplinaService {
     }
 
     public List<ContComentariosDTO> findByComments() {
-        List<Object[]> lista = this.disciplinaDao.findComentarios();
+        List<Disciplina[]> lista = this.disciplinaDao.findComentarios();
         List<ContComentariosDTO> contagem = new ArrayList<>();
 
         ModelMapper mapper = new ModelMapper();
-        for (Object[] dupla : lista) {
-            ContComentariosDTO novo = mapper.map(new ContComentariosDTO(dupla[0], dupla[1]));
+        for (Disciplina[] dupla : lista) {
+            ContComentariosDTO novo = mapper.map(new ContComentariosDTO(dupla[0], dupla[1]), ContComentariosDTO.class);
             contagem.add(novo);
         }
         return contagem;
