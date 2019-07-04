@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.Getter;
 
-/**
- * LoginController
- */
 @RestController()
 @RequestMapping({ "v1/auth" })
+@Api(value = "Login", description = "Recebe a requisicao de login, processa e retorna ao usuario um token de autenticacao que eh usado em interacoes futuras com esta API.")
 public class LoginController {
 
     // EXPIRATION_TIME = 10 dias
@@ -33,6 +33,7 @@ public class LoginController {
     @Autowired
     private UsuarioService userService;
 
+    @ApiOperation(value = "Recebe os dados do usuario e retorna um token de autenticacao.")
     @PostMapping("/login")
     public LoginResponse authenticate(@RequestBody Usuario user) {
         Optional<Usuario> authUser = userService.findById(user.getEmail());
@@ -59,6 +60,9 @@ public class LoginController {
         return new LoginResponse(token);
     }
 
+    /**
+     * Decodifica o token e recuperar o identificador do usuario.
+     */
     public String getTokenEmail(String token) {
 
         String name = "";

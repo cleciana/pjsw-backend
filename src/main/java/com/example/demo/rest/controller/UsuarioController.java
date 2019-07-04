@@ -21,11 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * UserController, direciona as requisições para o UserService
- */
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping({ "/v1/user" })
+@Api(value = "Usuario", description = "Trata as requisicoes que realizam operacoes sobre um usuario.")
 public class UsuarioController {
 
     private UsuarioService userService;
@@ -35,9 +36,10 @@ public class UsuarioController {
         this.userService = service;
     }
 
-    @GetMapping(value = "/{id}")
+    @ApiOperation(value = "Recupera informacoes de um usuario a partir de seu email")
+    @GetMapping(value = "/")
     @ResponseBody
-    public ResponseEntity<UsuarioDTO> findById(@PathVariable String id) {
+    public ResponseEntity<UsuarioDTO> findById(@RequestBody String id) {
         Optional<Usuario> user = this.userService.findById(id);
 
         if (!user.isPresent()) {
@@ -47,12 +49,7 @@ public class UsuarioController {
         return new ResponseEntity<UsuarioDTO>(mapper.map(u, UsuarioDTO.class),  HttpStatus.OK);
     }
 
-    /**
-     * Registra um novo usuario no banco de dados
-     * @param user
-     *      Instancia de Usuario
-     * @return
-     */
+    @ApiOperation(value = "Registra um novo usuario no banco de dados.")
     @PostMapping(value = "/")
     @ResponseBody
     public ResponseEntity<UsuarioDTO> create(@RequestBody Usuario user) {
@@ -68,6 +65,7 @@ public class UsuarioController {
         return new ResponseEntity<>(mapper.map(user, UsuarioDTO.class), HttpStatus.CREATED);
     }
 
+    @ApiOperation(value = "Delete um usuario do banco de dados.")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<HttpStatus> delete(@PathVariable String id) {
         try {
@@ -78,6 +76,7 @@ public class UsuarioController {
         }
     }
 
+    @ApiOperation(value = "Atualiza um usuario cadastrado com novas informacoes.")
     @PutMapping(value = "/")
     public ResponseEntity<UsuarioDTO> update(@RequestBody Usuario user) {
         try {

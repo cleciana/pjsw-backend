@@ -21,11 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * ClassController
- */
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping({ "v1/disciplinas" })
+@Api(value = "Controller de Disciplinas", description = "Recebe as requisições relacionadas a discipinas e as mapeia para o servico responsavel.")
 public class DisciplinaController {
 
     private DisciplinaService disciplinaService;
@@ -38,12 +39,7 @@ public class DisciplinaController {
         this.mapper = new ModelMapper();
     }
 
-    /**
-     * Cadastra uma disciplina no sistema
-     * 
-     * @param disciplina
-     * @return
-     */
+    @ApiOperation(value = "Cadastra uma nova disciplina no sistema.")
     @PostMapping(value = "/")
     @ResponseBody
     public ResponseEntity<DisciplinaDTO> create(@RequestHeader("Authorization") String token,
@@ -66,6 +62,7 @@ public class DisciplinaController {
         return new ResponseEntity<>(mapper.map(disciplina, DisciplinaDTO.class), HttpStatus.CREATED);
     }
 
+    @ApiOperation(value = "Busca e retorna uma Disciplina, identificada por um {id}")
     @GetMapping(value = "/{id}perfil")
     @ResponseBody
     public ResponseEntity<DisciplinaDTO> getDisciplina(@PathVariable int id, @RequestHeader("Authorization") String token) {
@@ -81,14 +78,7 @@ public class DisciplinaController {
         return new ResponseEntity<>(mapper.map(disciplina2, DisciplinaDTO.class), HttpStatus.OK);
     }
 
-
-    /**
-     * Busca as disciplinas que contem em seu nome a string recebida.
-     * 
-     * @param string String recebida do usuario.
-     * 
-     * @return Retorna uma lista de disciplinas que contem o parametro string.
-     */
+    @ApiOperation(value = "Busca as disciplinas que contem em seu nome a string recebida.")
     @GetMapping(value = "/{string}")
     @ResponseBody
     public ResponseEntity<List<Disciplina>> getBysubString(@PathVariable String string) {
@@ -96,7 +86,7 @@ public class DisciplinaController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    
+    @ApiOperation(value = "Busca e retorna uma listagem de disciplinas ordenadas por quantidade de likes, de forma decrescente.")
     @GetMapping(value = "/1")
     @ResponseBody
     public ResponseEntity<List<Disciplina>> rank1(@RequestHeader("Authorization") String token) {
@@ -109,18 +99,7 @@ public class DisciplinaController {
         return new ResponseEntity<>(lista, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/2")
-    @ResponseBody
-    public ResponseEntity<List<Disciplina>> rank2(@RequestHeader("Authorization") String token) {
-        String userMail = loginController.getTokenEmail(token);
-
-        if (userMail == "") {
-            throw new UnauthorizedAccessException("Voce nao tem permissao. Por favor, faca login.");
-        }
-        List<Disciplina> lista = this.disciplinaService.findByComments();
-        return new ResponseEntity<>(lista, HttpStatus.OK);
-    }
-
+    @ApiOperation(value = "Adiciona um like a disciplina identificada por {id}")
     @PutMapping(value = "/{id}")
     @ResponseBody
     public ResponseEntity<DisciplinaDTO> likeDisciplina(@PathVariable int id, @RequestHeader("Authorization") String token) {

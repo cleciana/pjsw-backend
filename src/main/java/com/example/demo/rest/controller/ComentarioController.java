@@ -1,7 +1,5 @@
 package com.example.demo.rest.controller;
 
-//import java.util.List;
-
 import com.example.demo.exception.UnauthorizedAccessException;
 import com.example.demo.exception.comment.CommentNotFoundException;
 import com.example.demo.rest.dto.ComentarioDTO;
@@ -21,11 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * ComentarioController
- */
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping({ "v1/comentarios" })
+@Api(value = "Controller de Comentarios", description = "Recebe e mapeia as requisições relativas a comentários de disciplinas.")
 public class ComentarioController {
 
     private ComentarioService comentarioService;
@@ -38,9 +37,7 @@ public class ComentarioController {
         this.login = new LoginController();
     }
     
-    /**
-     * Adiciona um comentario a disciplina identificada por {id}
-     */
+    @ApiOperation(value = "Adiciona um comentario a disciplina identificada por id")
     @PostMapping(value = "/")
     @ResponseBody
     public ResponseEntity<ComentarioDTO> createComentario(@RequestHeader("Authorization") String token, @RequestBody int id, @RequestBody Comentario comentario) {
@@ -59,9 +56,7 @@ public class ComentarioController {
         return new ResponseEntity<ComentarioDTO>(mapper.map(comentario, ComentarioDTO.class), HttpStatus.CREATED);
     }
 
-    /**
-     * Marca um comentario como deletado
-     */
+    @ApiOperation(value = "Marca um comentario como deletado")
     @DeleteMapping(value = "/{id}")
     @ResponseBody
     public ResponseEntity<ComentarioDTO> delete(@PathVariable int id) {
@@ -71,12 +66,7 @@ public class ComentarioController {
         return new ResponseEntity<>(mapper.map(comentario, ComentarioDTO.class), HttpStatus.OK);
     }
 
-    /**
-     * Retorna um objeto que representa um comentario, caso o comentario tenha sido deletado
-     * anteriormente, retorna um objeto com texto conteúdo vazio.
-     * 
-     * @param id    Identificador numerico de comentario
-     */
+    @ApiOperation(value = "Retorna um objeto que representa um comentario, caso o comentario tenha sido deletado anteriormente, retorna um objeto com texto conteúdo vazio.")
     @GetMapping(value = "/{id}")
     @ResponseBody
     public ResponseEntity<ComentarioDTO> getComentario(@PathVariable int id) {
