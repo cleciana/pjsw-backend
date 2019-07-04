@@ -2,7 +2,7 @@ package main.java.com.example.demo.rest;
 
 import java.util.Comparator;
 
-import com.example.demo.rest.dto.ContComentariosDTO;
+import main.java.com.example.demo.rest.dto.ContComentariosDTO;
 
 /**
  * ComentarioComparator
