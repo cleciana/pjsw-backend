@@ -1,5 +1,8 @@
 package com.example.demo.rest.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.example.demo.exception.UnauthorizedAccessException;
 import com.example.demo.exception.comment.CommentNotFoundException;
 import com.example.demo.rest.dto.ComentarioDTO;
@@ -9,7 +12,6 @@ import com.example.demo.rest.service.ComentarioService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@CrossOrigin(origins = "https://pjsw.herokuapp.com/")
 @RestController
 @RequestMapping({ "v1/comentarios" })
 @Api(value = "Controller de Comentarios", description = "Recebe e mapeia as requisições relativas a comentários de disciplinas.")
@@ -59,10 +60,11 @@ public class ComentarioController {
     }
 
     @ApiOperation(value = "Marca um comentario como deletado")
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "/")
     @ResponseBody
-    public ResponseEntity<ComentarioDTO> delete(@PathVariable int id) {
+    public ResponseEntity<ComentarioDTO> delete(@RequestBody int id) {
         Comentario com = this.comentarioService.findById(id);
+        if (com == null) throw new CommentNotFoundException("O Comentario nao existe.");
         com.setDeleted(true);
         Comentario comentario = this.comentarioService.update(com);
         return new ResponseEntity<>(mapper.map(comentario, ComentarioDTO.class), HttpStatus.OK);
@@ -71,7 +73,7 @@ public class ComentarioController {
     @ApiOperation(value = "Retorna um objeto que representa um comentario, caso o comentario tenha sido deletado anteriormente, retorna um objeto com texto conteúdo vazio.")
     @GetMapping(value = "/{id}")
     @ResponseBody
-    public ResponseEntity<ComentarioDTO> getComentario(@PathVariable int id) {
+    public ResponseEntity<ComentarioDTO> getComentario(@RequestBody int id) {
         Comentario com = this.comentarioService.findById(id);
         if (com == null) {
             throw new CommentNotFoundException("Desculpe, este comentario não existe.");
@@ -82,5 +84,17 @@ public class ComentarioController {
             return new ResponseEntity<>(comentario, HttpStatus.OK);
         }
         return new ResponseEntity<>(comentario, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "Busca e retorna todos os comentarios de uma determinada disciplina")
+    @GetMapping(value = "/")
+    @ResponseBody
+    public ResponseEntity<List<ComentarioDTO>> getComentarios(@PathVariable int id) {
+        List<ComentarioDTO> cDtos = new ArrayList<>();
+        List<Comentario> comentarios = this.comentarioService.findByDisciplinaId();
+        for (Comentario c : comentarios) {
+            cDtos.add(mapper.map(c, ComentarioDTO.class));
+        }
+        return new ResponseEntity<>(cDtos, HttpStatus.OK);
     }
 }

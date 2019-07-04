@@ -9,7 +9,6 @@ import com.example.demo.rest.model.Usuario;
 import com.example.demo.rest.service.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +20,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.Getter;
 
-@CrossOrigin(origins = "https://pjsw.herokuapp.com/")
 @RestController()
 @RequestMapping({ "v1/auth" })
 @Api(value = "Login", description = "Recebe a requisicao de login, processa e retorna ao usuario um token de autenticacao que eh usado em interacoes futuras com esta API.")
