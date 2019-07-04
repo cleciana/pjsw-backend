@@ -7,5 +7,6 @@
 # UCDb: classificações e reviews de cursos da UFCG
     Objetivo: organizar plataforma colaborativa para avaliações e informações sobre disciplinas de cursos da UFCG.
 
--Link do app no heroku: https://pjsw.herokuapp.com/
--Link da Documentação gerada com Swagger: https://pjsw.herokuapp.com/api/swagger-ui.html
+Link do app no heroku: https://pjsw.herokuapp.com/
+
+Link da Documentação gerada com Swagger: https://pjsw.herokuapp.com/api/swagger-ui.html
