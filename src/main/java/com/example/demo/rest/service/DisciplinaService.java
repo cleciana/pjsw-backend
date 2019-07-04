@@ -1,5 +1,6 @@
 package com.example.demo.rest.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.demo.rest.dao.DisciplinaDAO;
@@ -7,6 +8,8 @@ import com.example.demo.rest.model.Disciplina;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import main.java.com.example.demo.rest.dto.ContComentariosDTO;
 
 /**
  * DisciplinaService
@@ -51,7 +54,15 @@ public class DisciplinaService {
         return this.disciplinaDao.findAll(new Sort(Sort.Direction.DESC, "qtdLikes"));
     }
 
-    public List<Disciplina> findByComments() {
-        return this.disciplinaDao.OrderByComentariosDesc();
+    public List<ContComentariosDTO> findByComments() {
+        List<T> lista = this.disciplinaDao.OrderByComentariosDesc();
+        List<ContComentariosDTO> contagem = new ArrayList<>();
+
+        ModelMapper mapper = new ModelMapper();
+        for (T[] dupla : lista) {
+            ContComentariosDTO novo = mapper.map(new ContComentariosDTO(dupla[0], dupla[1]));
+            contagem.add(novo);
+        }
+        return contagem;
     }
 }

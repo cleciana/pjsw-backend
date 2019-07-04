@@ -118,6 +118,7 @@ public class DisciplinaController {
             throw new UnauthorizedAccessException("Voce nao tem permissao. Por favor, faca login.");
         }
         List<Disciplina> lista = this.disciplinaService.findByComments();
+        lista.sort(new ComentarioComparator());
         return new ResponseEntity<>(lista, HttpStatus.OK);
     }
 
