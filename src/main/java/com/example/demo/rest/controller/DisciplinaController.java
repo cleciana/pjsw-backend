@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import main.java.com.example.demo.rest.ComentarioComparator;
+import main.java.com.example.demo.rest.dto.ContComentariosDTO;
+
 /**
  * ClassController
  */
@@ -111,13 +114,13 @@ public class DisciplinaController {
 
     @GetMapping(value = "/2")
     @ResponseBody
-    public ResponseEntity<List<Disciplina>> rank2(@RequestHeader("Authorization") String token) {
+    public ResponseEntity<List<ContComentariosDTO>> rank2(@RequestHeader("Authorization") String token) {
         String userMail = loginController.getTokenEmail(token);
 
         if (userMail == "") {
             throw new UnauthorizedAccessException("Voce nao tem permissao. Por favor, faca login.");
         }
-        List<Disciplina> lista = this.disciplinaService.findByComments();
+        List<ContComentariosDTO> lista = this.disciplinaService.findByComments();
         lista.sort(new ComentarioComparator());
         return new ResponseEntity<>(lista, HttpStatus.OK);
     }

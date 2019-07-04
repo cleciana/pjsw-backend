@@ -3,6 +3,8 @@ package com.example.demo.rest.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
+
 import com.example.demo.rest.dao.DisciplinaDAO;
 import com.example.demo.rest.model.Disciplina;
 
@@ -55,11 +57,11 @@ public class DisciplinaService {
     }
 
     public List<ContComentariosDTO> findByComments() {
-        List<T> lista = this.disciplinaDao.OrderByComentariosDesc();
+        List<Object[]> lista = this.disciplinaDao.findComentarios();
         List<ContComentariosDTO> contagem = new ArrayList<>();
 
         ModelMapper mapper = new ModelMapper();
-        for (T[] dupla : lista) {
+        for (Object[] dupla : lista) {
             ContComentariosDTO novo = mapper.map(new ContComentariosDTO(dupla[0], dupla[1]));
             contagem.add(novo);
         }

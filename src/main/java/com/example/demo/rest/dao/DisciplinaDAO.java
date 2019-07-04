@@ -25,6 +25,6 @@ public interface DisciplinaDAO<T, ID> extends JpaRepository<Disciplina, Integer>
     Disciplina findByDescription(@Param("description") String description);
 
     @Query(value = "SELECT Disciplina.description, COUNT(Comentario.disciplina_Id) AS Comentarios FROM Comentario RIGHT JOIN Disciplina ON Comentario.disciplina_Id=Disciplina.id GROUP BY description", nativeQuery = true)
-    List<T[]> findByOrderByComentariosDesc();
+    List<T[]> findComentarios();
 
 }
