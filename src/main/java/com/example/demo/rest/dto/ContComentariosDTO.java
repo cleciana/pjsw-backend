@@ -5,7 +5,8 @@ package main.java.com.example.demo.rest.dto;
  */
 public class ContComentariosDTO implements Comparable<ContComentariosDTO> {
 
-    private String description;
+	private String description;
+	private int quantidade;
 
 	public String getDescription() {
 		return this.description;
@@ -14,8 +15,6 @@ public class ContComentariosDTO implements Comparable<ContComentariosDTO> {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-    private int quantidade;
 
 	public int getQuantidade() {
 		return this.quantidade;
