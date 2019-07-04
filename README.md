@@ -7,5 +7,4 @@
 # UCDb: classificações e reviews de cursos da UFCG
     Objetivo: organizar plataforma colaborativa para avaliações e informações sobre disciplinas de cursos da UFCG.
 
--Link da Documentação gerada com Swagger: http://localhost:8082/api/swagger-ui.html#/
-
+-Link da Documentação gerada com Swagger: https://pjsw.herokuapp.com/api/swagger-ui.html
