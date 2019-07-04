@@ -9,6 +9,9 @@ import com.example.demo.rest.model.Usuario;
 import com.example.demo.rest.service.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +23,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.Getter;
 
+@CrossOrigin
 @RestController()
 @RequestMapping({ "v1/auth" })
 @Api(value = "Login", description = "Recebe a requisicao de login, processa e retorna ao usuario um token de autenticacao que eh usado em interacoes futuras com esta API.")
@@ -35,7 +39,7 @@ public class LoginController {
 
     @ApiOperation(value = "Recebe os dados do usuario e retorna um token de autenticacao.")
     @PostMapping("/login")
-    public LoginResponse authenticate(@RequestBody Usuario user) {
+    public ResponseEntity<LoginResponse> authenticate(@RequestBody Usuario user) {
         Optional<Usuario> authUser = userService.findById(user.getEmail());
 
         // Verifica se o usuário está cadastrado.
@@ -57,7 +61,8 @@ public class LoginController {
         .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
         .compact();
 
-        return new LoginResponse(token);
+        ResponseEntity<LoginResponse> res = new ResponseEntity<LoginResponse>(new LoginResponse(token) , HttpStatus.OK);
+        return res ;
     }
 
     /**
