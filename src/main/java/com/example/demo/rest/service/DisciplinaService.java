@@ -56,7 +56,7 @@ public class DisciplinaService {
         return this.disciplinaDao.findAll(new Sort(Sort.Direction.DESC, "qtdLikes"));
     }
 
-    public List<ContComentariosDTO> findByComments() {
+    public List<Disciplina[]> findByComments() {
         List<Disciplina[]> lista = this.disciplinaDao.findComentarios();
         /*
         List<ContComentariosDTO> contagem = new ArrayList<>();

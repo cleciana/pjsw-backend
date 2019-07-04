@@ -114,14 +114,14 @@ public class DisciplinaController {
 
     @GetMapping(value = "/2")
     @ResponseBody
-    public ResponseEntity<List<ContComentariosDTO>> rank2(@RequestHeader("Authorization") String token) {
+    public ResponseEntity<List<Disciplina[]>> rank2(@RequestHeader("Authorization") String token) {
         String userMail = loginController.getTokenEmail(token);
 
         if (userMail == "") {
             throw new UnauthorizedAccessException("Voce nao tem permissao. Por favor, faca login.");
         }
-        List<ContComentariosDTO> lista = this.disciplinaService.findByComments();
-        lista.sort(new ComentarioComparator());
+        List<Disciplina[]> lista = this.disciplinaService.findByComments();
+        //lista.sort(new ComentarioComparator());
         return new ResponseEntity<>(lista, HttpStatus.OK);
     }
 
