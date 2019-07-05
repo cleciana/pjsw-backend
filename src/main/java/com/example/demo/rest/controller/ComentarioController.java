@@ -29,7 +29,7 @@ import io.swagger.annotations.ApiOperation;
 //@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping({ "v1/comentarios" })
-@Api(value = "Controller de Comentarios", description = "Recebe e mapeia as requisições relativas a comentários de disciplinas.")
+//@Api(value = "Controller de Comentarios", description = "Recebe e mapeia as requisições relativas a comentários de disciplinas.")
 public class ComentarioController {
 
     private ComentarioService comentarioService;
@@ -43,7 +43,7 @@ public class ComentarioController {
     }
     
     //@CrossOrigin
-    @ApiOperation(value = "Adiciona um comentario a disciplina identificada por id")
+    //@ApiOperation(value = "Adiciona um comentario a disciplina identificada por id")
     @PostMapping(value = "/")
     @ResponseBody
     public ResponseEntity<ComentarioDTO> createComentario(@RequestHeader("Authorization") String token, @RequestBody int id, @RequestBody Comentario comentario) {
@@ -63,7 +63,7 @@ public class ComentarioController {
     }
 
     //@CrossOrigin
-    @ApiOperation(value = "Marca um comentario como deletado")
+    //@ApiOperation(value = "Marca um comentario como deletado")
     @DeleteMapping(value = "/")
     @ResponseBody
     public ResponseEntity<ComentarioDTO> delete(@RequestBody int id) {
@@ -75,7 +75,7 @@ public class ComentarioController {
     }
 
     //@CrossOrigin
-    @ApiOperation(value = "Retorna um objeto que representa um comentario, caso o comentario tenha sido deletado anteriormente, retorna um objeto com texto conteúdo vazio.")
+    //@ApiOperation(value = "Retorna um objeto que representa um comentario, caso o comentario tenha sido deletado anteriormente, retorna um objeto com texto conteúdo vazio.")
     @GetMapping(value = "/{id}")
     @ResponseBody
     public ResponseEntity<ComentarioDTO> getComentario(@RequestBody int id) {
@@ -92,7 +92,7 @@ public class ComentarioController {
     }
 
     //@CrossOrigin
-    @ApiOperation(value = "Busca e retorna todos os comentarios de uma determinada disciplina")
+    //@ApiOperation(value = "Busca e retorna todos os comentarios de uma determinada disciplina")
     @GetMapping(value = "/")
     @ResponseBody
     public ResponseEntity<List<ComentarioDTO>> getComentarios(@RequestBody int id) {

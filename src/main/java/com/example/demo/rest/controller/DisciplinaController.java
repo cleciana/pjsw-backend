@@ -29,7 +29,7 @@ import io.swagger.annotations.ApiOperation;
 //@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping({ "v1/disciplinas" })
-@Api(value = "Controller de Disciplinas", description = "Recebe as requisições relacionadas a discipinas e as mapeia para o servico responsavel.")
+//@Api(value = "Controller de Disciplinas", description = "Recebe as requisições relacionadas a discipinas e as mapeia para o servico responsavel.")
 public class DisciplinaController {
 
     private DisciplinaService disciplinaService;
@@ -43,7 +43,7 @@ public class DisciplinaController {
     }
 
     //@CrossOrigin
-    @ApiOperation(value = "Cadastra uma nova disciplina no sistema.")
+    //@ApiOperation(value = "Cadastra uma nova disciplina no sistema.")
     @PostMapping(value = "/")
     @ResponseBody
     public ResponseEntity<DisciplinaDTO> create(@RequestHeader("Authorization") String token,
@@ -67,7 +67,7 @@ public class DisciplinaController {
     }
 
     //@CrossOrigin
-    @ApiOperation(value = "Busca e retorna uma Disciplina, identificada por um {id}")
+    //@ApiOperation(value = "Busca e retorna uma Disciplina, identificada por um {id}")
     @GetMapping(value = "/{id}perfil")
     @ResponseBody
     public ResponseEntity<DisciplinaDTO> getDisciplina(@PathVariable int id, @RequestHeader("Authorization") String token) {
@@ -84,7 +84,7 @@ public class DisciplinaController {
     }
 
     //@CrossOrigin
-    @ApiOperation(value = "Busca as disciplinas que contem em seu nome a string recebida.")
+    //@ApiOperation(value = "Busca as disciplinas que contem em seu nome a string recebida.")
     @GetMapping(value = "/{string}")
     @ResponseBody
     public ResponseEntity<List<Disciplina>> getBysubString(@PathVariable String string) {
@@ -93,7 +93,7 @@ public class DisciplinaController {
     }
 
     //@CrossOrigin
-    @ApiOperation(value = "Busca e retorna uma listagem de disciplinas ordenadas por quantidade de likes, de forma decrescente.")
+    //@ApiOperation(value = "Busca e retorna uma listagem de disciplinas ordenadas por quantidade de likes, de forma decrescente.")
     @GetMapping(value = "/1")
     @ResponseBody
     public ResponseEntity<List<Disciplina>> rank1(@RequestHeader("Authorization") String token) {
@@ -107,7 +107,7 @@ public class DisciplinaController {
     }
 
     //@CrossOrigin
-    @ApiOperation(value = "Adiciona um like a disciplina identificada por {id}")
+    //@ApiOperation(value = "Adiciona um like a disciplina identificada por {id}")
     @PutMapping(value = "/{id}")
     @ResponseBody
     public ResponseEntity<DisciplinaDTO> likeDisciplina(@PathVariable int id, @RequestHeader("Authorization") String token) {

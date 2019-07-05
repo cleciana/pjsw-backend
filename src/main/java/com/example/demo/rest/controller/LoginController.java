@@ -29,7 +29,7 @@ import lombok.Getter;
 //@CrossOrigin(origins = "*")
 @RestController()
 @RequestMapping({ "v1/auth" })
-@Api(value = "Login", description = "Recebe a requisicao de login, processa e retorna ao usuario um token de autenticacao que eh usado em interacoes futuras com esta API.")
+//@Api(value = "Login", description = "Recebe a requisicao de login, processa e retorna ao usuario um token de autenticacao que eh usado em interacoes futuras com esta API.")
 public class LoginController {
 
     // EXPIRATION_TIME = 10 dias
@@ -41,7 +41,7 @@ public class LoginController {
     private UsuarioService userService;
 
     //@CrossOrigin
-    @ApiOperation(value = "Recebe os dados do usuario e retorna um token de autenticacao.")
+    //@ApiOperation(value = "Recebe os dados do usuario e retorna um token de autenticacao.")
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> authenticate(@RequestBody Usuario user, HttpServletResponse response) {
         Optional<Usuario> authUser = userService.findById(user.getEmail());
