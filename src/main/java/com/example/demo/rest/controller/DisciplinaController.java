@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping({ "v1/disciplinas" })
 @Api(value = "Controller de Disciplinas", description = "Recebe as requisições relacionadas a discipinas e as mapeia para o servico responsavel.")
@@ -42,7 +42,7 @@ public class DisciplinaController {
         this.mapper = new ModelMapper();
     }
 
-    @CrossOrigin
+    //@CrossOrigin
     @ApiOperation(value = "Cadastra uma nova disciplina no sistema.")
     @PostMapping(value = "/")
     @ResponseBody
@@ -66,7 +66,7 @@ public class DisciplinaController {
         return new ResponseEntity<>(mapper.map(disciplina, DisciplinaDTO.class), HttpStatus.CREATED);
     }
 
-    @CrossOrigin
+    //@CrossOrigin
     @ApiOperation(value = "Busca e retorna uma Disciplina, identificada por um {id}")
     @GetMapping(value = "/{id}perfil")
     @ResponseBody
@@ -83,7 +83,7 @@ public class DisciplinaController {
         return new ResponseEntity<>(mapper.map(disciplina2, DisciplinaDTO.class), HttpStatus.OK);
     }
 
-    @CrossOrigin
+    //@CrossOrigin
     @ApiOperation(value = "Busca as disciplinas que contem em seu nome a string recebida.")
     @GetMapping(value = "/{string}")
     @ResponseBody
@@ -92,7 +92,7 @@ public class DisciplinaController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    @CrossOrigin
+    //@CrossOrigin
     @ApiOperation(value = "Busca e retorna uma listagem de disciplinas ordenadas por quantidade de likes, de forma decrescente.")
     @GetMapping(value = "/1")
     @ResponseBody
@@ -106,7 +106,7 @@ public class DisciplinaController {
         return new ResponseEntity<>(lista, HttpStatus.OK);
     }
 
-    @CrossOrigin
+    //@CrossOrigin
     @ApiOperation(value = "Adiciona um like a disciplina identificada por {id}")
     @PutMapping(value = "/{id}")
     @ResponseBody
