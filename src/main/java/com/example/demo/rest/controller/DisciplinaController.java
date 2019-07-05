@@ -53,7 +53,7 @@ public class DisciplinaController {
         if (disciplina2 == null) {
             String name = loginController.getTokenEmail(token);
 
-            if (name != "" && name == "ADMIN") {
+            if (name != "") {
                 Disciplina d = this.disciplinaService.create(disciplina);
 
                 if (d == null) {
