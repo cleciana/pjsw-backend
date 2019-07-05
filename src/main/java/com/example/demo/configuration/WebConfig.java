@@ -1,4 +1,4 @@
-/*
+
 package com.example.demo.configuration;
 
 import org.springframework.context.annotation.Configuration;
@@ -16,4 +16,3 @@ public class WebConfig implements WebMvcConfigurer {
 			.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT");
 	}
 }
-*/
