@@ -43,7 +43,7 @@ public class LoginController {
     //@CrossOrigin
     @ApiOperation(value = "Recebe os dados do usuario e retorna um token de autenticacao.")
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> authenticate(@RequestBody Usuario user, HttpServletResponse response) {
+    public ResponseEntity<LoginResponse> authenticate(@RequestBody Usuario user) {
         Optional<Usuario> authUser = userService.findById(user.getEmail());
 
         // Verifica se o usuário está cadastrado.
@@ -65,7 +65,6 @@ public class LoginController {
         .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
         .compact();
 
-        response.addHeader("Access-Control-Allow-Origin", "*");
         ResponseEntity<LoginResponse> res = new ResponseEntity<LoginResponse>(new LoginResponse(token) , HttpStatus.OK);
         return res ;
     }
