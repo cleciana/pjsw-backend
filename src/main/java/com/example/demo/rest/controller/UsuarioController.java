@@ -29,7 +29,7 @@ import io.swagger.annotations.ApiOperation;
 //@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping({ "v1/user" })
-//@Api(value = "Usuario", description = "Trata as requisicoes que realizam operacoes sobre um usuario.")
+@Api(value = "Usuario", description = "Trata as requisicoes que realizam operacoes sobre um usuario.")
 public class UsuarioController {
 
     private UsuarioService userService;
@@ -40,7 +40,7 @@ public class UsuarioController {
     }
 
     //@CrossOrigin
-    //@ApiOperation(value = "Recupera informacoes de um usuario a partir de seu email")
+    @ApiOperation(value = "Recupera informacoes de um usuario a partir de seu email")
     @GetMapping(value = "/")
     @ResponseBody
     public ResponseEntity<UsuarioDTO> findById(@RequestBody String id) {
@@ -54,7 +54,7 @@ public class UsuarioController {
     }
 
     //@CrossOrigin
-    //@ApiOperation(value = "Registra um novo usuario no banco de dados.")
+    @ApiOperation(value = "Registra um novo usuario no banco de dados.")
     @PostMapping(value = "/")
     @ResponseBody
     public ResponseEntity<UsuarioDTO> create(@RequestBody Usuario user) {
@@ -71,7 +71,7 @@ public class UsuarioController {
     }
 
     //@CrossOrigin
-    //@ApiOperation(value = "Delete um usuario do banco de dados.")
+    @ApiOperation(value = "Delete um usuario do banco de dados.")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<HttpStatus> delete(@PathVariable String id) {
         try {
@@ -83,7 +83,7 @@ public class UsuarioController {
     }
 
     //@CrossOrigin
-    //@ApiOperation(value = "Atualiza um usuario cadastrado com novas informacoes.")
+    @ApiOperation(value = "Atualiza um usuario cadastrado com novas informacoes.")
     @PutMapping(value = "/")
     public ResponseEntity<UsuarioDTO> update(@RequestBody Usuario user) {
         try {

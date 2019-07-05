@@ -1,4 +1,4 @@
-/*
+
 package com.example.demo;
 
 import org.springframework.context.annotation.Bean;
@@ -45,4 +45,3 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
         .addResourceLocations("classpath:/META-INF/resources/webjars/");
   }
 }
-*/
