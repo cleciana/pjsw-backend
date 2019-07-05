@@ -24,6 +24,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.Getter;
 
+@CrossOrigin(origins = "*")
 @RestController()
 @RequestMapping({ "v1/auth" })
 @Api(value = "Login", description = "Recebe a requisicao de login, processa e retorna ao usuario um token de autenticacao que eh usado em interacoes futuras com esta API.")
@@ -37,6 +38,7 @@ public class LoginController {
     @Autowired
     private UsuarioService userService;
 
+    @CrossOrigin
     @ApiOperation(value = "Recebe os dados do usuario e retorna um token de autenticacao.")
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> authenticate(@RequestBody Usuario user, HttpServletResponse response) {

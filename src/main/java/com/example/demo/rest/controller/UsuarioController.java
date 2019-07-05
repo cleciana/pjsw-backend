@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping({ "v1/user" })
 @Api(value = "Usuario", description = "Trata as requisicoes que realizam operacoes sobre um usuario.")
@@ -36,6 +37,7 @@ public class UsuarioController {
         this.userService = service;
     }
 
+    @CrossOrigin
     @ApiOperation(value = "Recupera informacoes de um usuario a partir de seu email")
     @GetMapping(value = "/")
     @ResponseBody
@@ -49,6 +51,7 @@ public class UsuarioController {
         return new ResponseEntity<UsuarioDTO>(mapper.map(u, UsuarioDTO.class),  HttpStatus.OK);
     }
 
+    @CrossOrigin
     @ApiOperation(value = "Registra um novo usuario no banco de dados.")
     @PostMapping(value = "/")
     @ResponseBody
@@ -65,6 +68,7 @@ public class UsuarioController {
         return new ResponseEntity<>(mapper.map(user, UsuarioDTO.class), HttpStatus.CREATED);
     }
 
+    @CrossOrigin
     @ApiOperation(value = "Delete um usuario do banco de dados.")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<HttpStatus> delete(@PathVariable String id) {
@@ -76,6 +80,7 @@ public class UsuarioController {
         }
     }
 
+    @CrossOrigin
     @ApiOperation(value = "Atualiza um usuario cadastrado com novas informacoes.")
     @PutMapping(value = "/")
     public ResponseEntity<UsuarioDTO> update(@RequestBody Usuario user) {

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping({ "v1/comentarios" })
 @Api(value = "Controller de Comentarios", description = "Recebe e mapeia as requisições relativas a comentários de disciplinas.")
@@ -39,6 +40,7 @@ public class ComentarioController {
         this.login = new LoginController();
     }
     
+    @CrossOrigin
     @ApiOperation(value = "Adiciona um comentario a disciplina identificada por id")
     @PostMapping(value = "/")
     @ResponseBody
@@ -58,6 +60,7 @@ public class ComentarioController {
         return new ResponseEntity<ComentarioDTO>(mapper.map(comentario, ComentarioDTO.class), HttpStatus.CREATED);
     }
 
+    @CrossOrigin
     @ApiOperation(value = "Marca um comentario como deletado")
     @DeleteMapping(value = "/")
     @ResponseBody
@@ -69,6 +72,7 @@ public class ComentarioController {
         return new ResponseEntity<>(mapper.map(comentario, ComentarioDTO.class), HttpStatus.OK);
     }
 
+    @CrossOrigin
     @ApiOperation(value = "Retorna um objeto que representa um comentario, caso o comentario tenha sido deletado anteriormente, retorna um objeto com texto conteúdo vazio.")
     @GetMapping(value = "/{id}")
     @ResponseBody
@@ -85,6 +89,7 @@ public class ComentarioController {
         return new ResponseEntity<>(comentario, HttpStatus.OK);
     }
 
+    @CrossOrigin
     @ApiOperation(value = "Busca e retorna todos os comentarios de uma determinada disciplina")
     @GetMapping(value = "/")
     @ResponseBody
