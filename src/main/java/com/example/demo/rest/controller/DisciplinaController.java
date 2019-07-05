@@ -8,6 +8,8 @@ import com.example.demo.rest.dto.DisciplinaDTO;
 import com.example.demo.rest.model.Disciplina;
 import com.example.demo.rest.service.DisciplinaService;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

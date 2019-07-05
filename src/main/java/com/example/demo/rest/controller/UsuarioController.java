@@ -8,6 +8,8 @@ import com.example.demo.rest.dto.UsuarioDTO;
 import com.example.demo.rest.model.Usuario;
 import com.example.demo.rest.service.UsuarioService;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

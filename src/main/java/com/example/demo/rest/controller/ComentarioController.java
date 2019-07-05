@@ -9,6 +9,8 @@ import com.example.demo.rest.dto.ComentarioDTO;
 import com.example.demo.rest.model.Comentario;
 import com.example.demo.rest.service.ComentarioService;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

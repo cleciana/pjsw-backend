@@ -10,6 +10,8 @@ import com.example.demo.exception.user.UserNotFoundException;
 import com.example.demo.rest.model.Usuario;
 import com.example.demo.rest.service.UsuarioService;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
