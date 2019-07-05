@@ -12,7 +12,6 @@ import com.example.demo.rest.service.ComentarioService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@CrossOrigin
 @RestController
 @RequestMapping({ "v1/comentarios" })
 @Api(value = "Controller de Comentarios", description = "Recebe e mapeia as requisições relativas a comentários de disciplinas.")
