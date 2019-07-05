@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> Cadastrar </title>
+        <link rel="stylesheet" href="./css/busca.css">
+        <link rel="stylesheet" href="./css/cadastrar.css">
+        <link rel="stylesheet" href="./css/footer.css">
+        <link rel="stylesheet" href="./css/html.css">
+        <link rel="stylesheet" href="./css/util.css">
+    </head>
+    <body>
+        <header>
+            <h2 style="text-align: center; color:#4a003a">UCDB:classificações e reviews de cursos da UFCG</h2>
+            <div id="links">
+                <h3 style="margin: 10px"> 
+                    <p class="botao"><a href="index.html" title="Inicio" target="_self"> Inicio </a></p>
+                </h3>
+                <h3 style="margin: 10px"> 
+                    <p class="botao"><a href="login.html" title="Login" target="_self"> Login</a></p> 
+                </h3>
+                <form id="pesquisa">
+                    <input type="text" id="texto" placeholder="Buscar..."/>
+                    <img class="bnt" onclick=getDisciplinas() src="https://image.flaticon.com/icons/png/512/16/16492.png" alt="Buscar..."/>
+                    <select id="historico" onchange=changeFunc(value)></select>
+                </form>
+            </div>
+        </header>
+        <main>
+            <div id="msgemail"></div>
+            <div class="caixaEntrada">
+                <div class="entradas">
+                    <input id="txtNome"  class="inputs" type="text" name="nome" placeholder="Nome" autofocus="autofocus"  />
+                    <input id="txtSobrenome"  class="inputs" type="text" name="sobrenome" placeholder="Sobrenome" autofocus="autofocus"  />
+                    <input id="txtEmail" class="inputs" type="text" name="email" placeholder="Email" autofocus="autofocus" onblur="validacaoEmail()" maxlength="60" size='65'  />
+                    <input id="txtSenha"  class="inputs" type="password" name="senha" placeholder="Senha" autofocus="autofocus"  />
+                    <input id="txtConfirmarSenha"  class="inputs" type="password" name="Confirmar Senha" placeholder="Confirmar Senha" autofocus="autofocus"  onblur="validaSenha()"/>
+                </div>
+                <button class="botao" style="margin-left:40% " onclick="cadastra()"> CADASTRAR</button>
+            </div>
+        </main>
+        <footer>
+            <div id="img">
+                <img id="logoUFCG" src="http://labarc.ufcg.edu.br/loac/uploads/OAC/ufcg_logomarca3.svg">
+                <img id="logoCC" src="https://www.lcc.ufcg.edu.br/status/images/logo.png">
+            </div>
+            <div id="linksRodape">
+                <h4>Links</h4>
+                <p><a class="decoracaoLinks" href="index.html" title="Inicio" target="_blank"> Inicio </a></p>
+                <p><a class="decoracaoLinks"href="cadastrar.html" title="Cadastrar" target="_blank"> Cadastrar</a></p> 
+                <p><a class="decoracaoLinks"href="login.html" title="Login" target="_blank"> Login</a></p>
+            </div>
+            <div id="sobre">                    
+                <h4>Desenvolvedores</h4>
+                <p><a class="decoracaoLinks" href="https://twitter.com/_allebarros" title="Ale" target="_blank"> Alessandra Barros </a></p>
+                <p><a class="decoracaoLinks" href="https://www.instagram.com/cleciana.santanaa/" title="Cle" target="_blank"> Cleciana Santana </a></p>
+            </div>
+        </footer>
+        <script src="./javascript/buscaDisciplina.js"></script>
+        <script src="./javascript/validaEntradas.js"></script>
+        <script src="./javascript/cadastra.js"></script>
+    </body>
+</html>

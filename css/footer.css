@@ -1,0 +1,50 @@
+footer{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 3px;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    background-color: #ffde59;
+}
+#links{
+    display: flex;
+    justify-content:baseline;
+    margin: 5px;
+}
+#logoUFCG{
+    max-width: 180px;
+    max-height: 130px;
+    width: auto;
+    height: auto;
+    margin-top: 20px;
+    margin-left: 0px;
+}
+#logoCC{
+    max-width: 100px;
+    max-height: 50px;
+    width: auto;
+    height: auto;
+    margin-top: 50px;
+    margin-left: 10px;
+}
+#img{
+    display: grid;
+    grid-template-columns: 10px;
+    grid-template-rows: 50px 50px;
+}
+#linksRodape{
+    text-decoration: none;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    font-size: 10px;
+}
+#sobre{
+    text-decoration: none;
+    grid-column-start: 3;
+    grid-column-end: 4;
+    font-size: 10px;
+}
+.decoracaoLinks{
+    text-decoration:none;
+    color: #4a003a;
+}

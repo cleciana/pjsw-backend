@@ -1,0 +1,39 @@
+header{
+    grid-column-start: 1;
+    grid-column-end: 5;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-template-areas: "h3" 
+                          "form";
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    align-items: center;
+    background-color: #ffde59;
+    position: relative;
+    margin: 3px;
+    padding: 18px;
+    text-align: center;
+}
+main{
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    margin: 3px;
+    grid-column-start: 1;
+    grid-column-end: 5;
+    justify-items: center;
+    background-color: #5ce1e6;
+    text-align: center
+    
+}
+#rankingLike{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    text-align: initial;
+    background-color:#5ce1e6;
+    list-style: decimal;
+    border: 1px solid #ff66c4;
+    margin: 6px;
+    border-radius: 6px;
+}

@@ -1,0 +1,19 @@
+.botao{  
+    font: bold 12px/24px arial, helvetica, sans-aerif;	
+    padding:0px;
+    text-decoration: none;
+    text-align:center;	
+    color:#4a003a;
+    justify-items: center;
+    background-color: #ff66c4;
+    width:120px;  
+    height:24px;	
+    display:block;
+    margin-top: 3px;	
+}
+
+.inputs{
+    margin: 2px;
+    margin-top: 5px; 
+    background-color: bisque;
+}

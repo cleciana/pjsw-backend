@@ -1,0 +1,53 @@
+:host {
+    background: #bfb;
+    padding: 0px;
+    border-radius: 6px;
+    border: solid 1px brown;
+    margin-bottom: 0px;
+    display: grid;
+    grid-template-areas:
+            "dados"
+             "coisas";
+    grid-gap: 5px;
+    margin-top:5px;
+    margin-left: 5px;
+    font-size: 10px;
+    margin-bottom: 8px;
+}
+.dados{
+    grid-area: dados;
+    display: grid;
+    grid-template-areas: 
+            "usuario     hora";
+}
+.coisas{
+    grid-area: coisas;
+    display: grid;
+    grid-template-areas: 
+            "comentario lixeira";
+}
+.hora {
+    justify-self: end;
+    grid-area: hora;
+    margin: 5px;
+    color: gray;
+}
+.comentario{
+    margin: 5px;
+    grid-area: comentario;
+    color: navy;
+    justify-self: start;
+}
+.usuario {
+    grid-area: usuario;
+    justify-self: start;
+    margin:5px;
+}
+#lixeira{
+    justify-self: end;
+    grid-area: lixeira;
+    max-width: 60px;
+    max-height: 20px;
+    margin:5px;
+}
+

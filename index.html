@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> UCDB </title>
+        <link rel="stylesheet" href="./css/html.css">
+        <link rel="stylesheet" href="./css/index.css">
+        <link rel="stylesheet" href="./css/footer.css">
+        <link rel="stylesheet" href="./css/util.css">
+        <link rel="stylesheet" href="./css/busca.css">
+    </head>
+    <body>
+        <header>
+            <h1> Bem vindo ao UCDB:classificações e reviews de cursos da UFCG</h1>
+            <form id="pesquisa">
+                <input type="text" id="texto" placeholder="Buscar..."/>
+                <img class="bnt" onclick=getDisciplinas() src="https://image.flaticon.com/icons/png/512/16/16492.png" alt="Buscar..."/>
+                <select id="historico" onchange=changeFunc(value)></select>
+            </form>
+        </header>
+        <aside>
+            <div id="lateral">
+                <h3 >O que é o UCDB?</h3>
+                <p> Aqui você pode avalias as cadeiras do seu<br> curso ou ver as avalições que seus 
+                    colegas fizeram,<br> além de poder trocar ideias com os outros alunos!!
+                </p>
+            </div> 
+            
+        </aside>
+        <main>
+            <div id="opcoes">
+                <p class="botao" style="margin-top: 170px">
+                    <a href="login.html" title="Login" target="_self" >login</a>
+                </p>
+                <p class="botao">
+                    <a  href="cadastrar.html" title="Cadastrar" target="_self">cadastrar</a>
+                </p>
+            </div>
+            
+        </main>
+        
+        <footer>
+                <div id="img">
+                    <img id="logoUFCG" src="http://labarc.ufcg.edu.br/loac/uploads/OAC/ufcg_logomarca3.svg">
+                    <img id="logoCC" src="https://www.lcc.ufcg.edu.br/status/images/logo.png">
+                </div>
+                <div id="linksRodape">
+                    <h4>Links</h4>
+                    <p><a class="decoracaoLinks" href="index.html" title="Inicio" target="_blank"> Inicio </a></p>
+                    <p><a class="decoracaoLinks"href="cadastrar.html" title="Cadastrar" target="_blank"> Cadastrar</a></p> 
+                    <p><a class="decoracaoLinks"href="login.html" title="Login" target="_blank"> Login</a></p>
+                    
+                </div>
+                <div id="sobre">
+                    <h4>Desenvolvedores</h4>
+                    <p><a class="decoracaoLinks" href="https://twitter.com/_allebarros" title="Ale" target="_blank"> Alessandra Barros </a></p>
+                    <p><a class="decoracaoLinks" href="https://www.instagram.com/cleciana.santanaa/" title="Cle" target="_blank"> Cleciana Santana </a></p>
+        
+                </div>
+        </footer>
+        <script src="./javascript/buscaDisciplina.js"></script>
+    </body>
+</html>
