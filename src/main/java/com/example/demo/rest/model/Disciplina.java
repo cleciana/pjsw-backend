@@ -45,11 +45,11 @@ public class Disciplina {
 
         } else {
             this.likes.add(name);
+            this.deuLike(name);
         }
 	}
 
 	public void deuLike(String username) {
         this.setDeuLike(likes.contains(username));
-        this.deuLike(name);
     }
 }
