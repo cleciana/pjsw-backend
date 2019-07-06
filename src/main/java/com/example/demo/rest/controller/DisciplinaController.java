@@ -104,7 +104,8 @@ public class DisciplinaController {
             throw new UnauthorizedAccessException("Voce nao tem permissao. Por favor, faca login.");
         }
         List<Disciplina> lista = this.disciplinaService.findAllByLikes();
-        return new ResponseEntity<>(lista.sort(new DisciplinaComparator<Disciplina>()), HttpStatus.OK);
+        lista.sort(new DisciplinaComparator<Disciplina>());
+        return new ResponseEntity<>(lista, HttpStatus.OK);
     }
 
     //@CrossOrigin
