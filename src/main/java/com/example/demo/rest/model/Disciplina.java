@@ -47,9 +47,14 @@ public class Disciplina {
             this.likes.add(name);
             this.deuLike(name);
         }
+        this.atualizaQtd();
 	}
 
 	public void deuLike(String username) {
         this.setDeuLike(likes.contains(username));
+    }
+
+    public void atualizaQtd() {
+        this.qtdLikes = this.likes.size();
     }
 }
