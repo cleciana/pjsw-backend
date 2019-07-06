@@ -41,9 +41,9 @@ public class UsuarioController {
 
     //@CrossOrigin
     @ApiOperation(value = "Recupera informacoes de um usuario a partir de seu email")
-    @GetMapping(value = "/")
+    @GetMapping(value = "/{id}")
     @ResponseBody
-    public ResponseEntity<UsuarioDTO> findById(@RequestBody String id) {
+    public ResponseEntity<UsuarioDTO> findById(@PathVariable String id) {
         Optional<Usuario> user = this.userService.findById(id);
 
         if (!user.isPresent()) {
