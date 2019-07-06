@@ -41,55 +41,7 @@ public class DisciplinaService {
     }
     
     public List<Disciplina> findDisciplinas() {
-        List<Disciplina> list = this.disciplinaDao.findAll();
-
-        return this.sortDisciplinas(list);
-    }
-
-    private List<Disciplina> sortDisciplinas(List<Disciplina> list) {
-        Disciplina[] disciplinas = this.meuToArray(list, list.size());
-        this.likeSort(disciplinas, 0, list.size());
-
-        List<Disciplina> nova = new ArrayList<>();
-        for (int i = disciplinas.length-1; i >= 0; i--) {
-            nova.add(disciplinas[i]);
-        }
-        return nova;
-    }
-
-    private Disciplina[] meuToArray(List<Disciplina> list, int n) {
-        Disciplina[] array = new Disciplina[n];
-        for (int i = 0; i < n; i++) {
-            array[i] = list.get(i);
-        }
-        return array;
-    }
-
-    private void likeSort(Disciplina[] disciplinas, int left, int right) {
-        if (left < right) {
-            int index = partition(disciplinas, left, right);
-
-            likeSort(disciplinas, left, index - 1);
-            likeSort(disciplinas, index + 1, right);
-        }
-    }
-
-    private int partition(Disciplina[] disciplinas, int left, int right) {
-        Disciplina pivo = disciplinas[right];
-        int i = left -1;
-
-        for (int j = left; j < right; j++) {
-            if (disciplinas[j].getLikes().size() <= pivo.getLikes().size()) {
-                i++;
-                Disciplina aux = disciplinas[i];
-                disciplinas[i] = disciplinas[j];
-                disciplinas[j] = aux;
-            }
-        }
-        Disciplina aux2 = disciplinas[i+1];
-        disciplinas[i+1] = disciplinas[right];
-        disciplinas[right] = aux2;
-        return i+1;
+        return this.disciplinaDao.findAll();
     }
 
     public List<Disciplina> findByComments() {
