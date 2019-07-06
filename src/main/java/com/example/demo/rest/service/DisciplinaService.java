@@ -47,14 +47,24 @@ public class DisciplinaService {
     }
 
     private List<Disciplina> sortDisciplinas(List<Disciplina> list) {
-        Disciplina[] disciplinas = list.toArray(new Disciplina[list.size()]);
+        Disciplina[] disciplinas = this.meuToArray(list, list.size());
         this.likeSort(disciplinas, 0, disciplinas.length-1);
 
         List<Disciplina> nova = new ArrayList<>();
-        for (int i = disciplinas.length-1; i >= 0; i++) {
+        for (int i = disciplinas.length-1; i >= 0; i--) {
             nova.add(disciplinas[i]);
         }
         return nova;
+    }
+
+    private Disciplina[] meuToArray(List<Disciplina> list, int n) {
+        Disciplina[] array = new Disciplina[n];
+        int i = 0;
+        for (Disciplina d : list) {
+            array[i] = d;
+            i++;
+        }
+        return array;
     }
 
     private void likeSort(Disciplina[] disciplinas, int left, int right) {
