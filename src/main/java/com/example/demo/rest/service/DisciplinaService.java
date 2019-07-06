@@ -1,11 +1,11 @@
 package com.example.demo.rest.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.demo.rest.dao.DisciplinaDAO;
 import com.example.demo.rest.model.Disciplina;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,13 +20,6 @@ public class DisciplinaService {
         this.disciplinaDao = disciplinaDao;
     }
 
-     /**
-     * Registra uma nova disciplina no banco de dados.
-     * 
-     * @param user Uma instancia de Disciplina
-     * 
-     * @return Retorna a Entidade Disciplina
-     */
     public Disciplina create(Disciplina disciplina) {
         return this.disciplinaDao.save(disciplina);
     }
@@ -48,7 +41,47 @@ public class DisciplinaService {
     }
     
     public List<Disciplina> findAllByLikes() {
-        return this.disciplinaDao.findAll(new Sort(Sort.Direction.ASC, "qtdLikes"));
+        List<Disciplina> list = this.disciplinaDao.findAll();
+
+        return this.sortDisciplinas(list);
+    }
+
+    private List<Disciplina> sortDisciplinas(List<Disciplina> list) {
+        Disciplina[] disciplinas = list.toArray(new Disciplina[list.size()]);
+        this.likeSort(disciplinas, 0, disciplinas.length-1);
+
+        List<Disciplina> nova = new ArrayList<>();
+        for (int i = disciplinas.length-1; i >= 0; i++) {
+            nova.add(disciplinas[i]);
+        }
+        return nova;
+    }
+
+    private void likeSort(Disciplina[] disciplinas, int left, int right) {
+        if (left < right) {
+            int partitionIndex = partition(disciplinas, left, right);
+
+            likeSort(disciplinas, left, partitionIndex - 1);
+            likeSort(disciplinas, partitionIndex + 1, right);
+        }
+    }
+
+    private int partition(Disciplina[] disciplinas, int left, int right) {
+        Disciplina pivo = disciplinas[right];
+        int i = left -1;
+
+        for (int j = left; j < right; j++) {
+            if (disciplinas[j].getQtdLikes() <= pivo.getQtdLikes()) {
+                i++;
+                Disciplina aux = disciplinas[i];
+                disciplinas[i] = disciplinas[j];
+                disciplinas[j] = aux;
+            }
+        }
+        Disciplina aux2 = disciplinas[i+1];
+        disciplinas[i+1] = disciplinas[right];
+        disciplinas[right] = aux2;
+        return i+1;
     }
 
     public List<Disciplina> findByComments() {

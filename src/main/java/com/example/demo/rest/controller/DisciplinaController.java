@@ -2,14 +2,11 @@ package com.example.demo.rest.controller;
 
 import java.util.List;
 
-import com.example.demo.DisciplinaComparator;
 import com.example.demo.exception.UnauthorizedAccessException;
 import com.example.demo.exception.disciplina.ClassNotRegisteredException;
 import com.example.demo.rest.dto.DisciplinaDTO;
 import com.example.demo.rest.model.Disciplina;
 import com.example.demo.rest.service.DisciplinaService;
-
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -43,7 +40,6 @@ public class DisciplinaController {
         this.mapper = new ModelMapper();
     }
 
-    //@CrossOrigin
     @ApiOperation(value = "Cadastra uma nova disciplina no sistema.")
     @PostMapping(value = "/")
     @ResponseBody
@@ -67,7 +63,6 @@ public class DisciplinaController {
         return new ResponseEntity<>(mapper.map(disciplina, DisciplinaDTO.class), HttpStatus.CREATED);
     }
 
-    //@CrossOrigin
     @ApiOperation(value = "Busca e retorna uma Disciplina, identificada por um {id}")
     @GetMapping(value = "/{id}perfil")
     @ResponseBody
@@ -84,7 +79,6 @@ public class DisciplinaController {
         return new ResponseEntity<>(mapper.map(disciplina2, DisciplinaDTO.class), HttpStatus.OK);
     }
 
-    //@CrossOrigin
     @ApiOperation(value = "Busca as disciplinas que contem em seu nome a string recebida.")
     @GetMapping(value = "/{string}")
     @ResponseBody
@@ -93,7 +87,6 @@ public class DisciplinaController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    //@CrossOrigin
     @ApiOperation(value = "Busca e retorna uma listagem de disciplinas ordenadas por quantidade de likes, de forma decrescente.")
     @GetMapping(value = "/rank")
     @ResponseBody
@@ -107,7 +100,6 @@ public class DisciplinaController {
         return new ResponseEntity<>(lista, HttpStatus.OK);
     }
 
-    //@CrossOrigin
     @ApiOperation(value = "Adiciona um like a disciplina identificada por {id}")
     @PutMapping(value = "/{id}")
     @ResponseBody
