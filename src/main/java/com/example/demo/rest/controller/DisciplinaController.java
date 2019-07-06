@@ -2,6 +2,7 @@ package com.example.demo.rest.controller;
 
 import java.util.List;
 
+import com.example.demo.DisciplinaComparator;
 import com.example.demo.exception.UnauthorizedAccessException;
 import com.example.demo.exception.disciplina.ClassNotRegisteredException;
 import com.example.demo.rest.dto.DisciplinaDTO;
@@ -103,6 +104,7 @@ public class DisciplinaController {
             throw new UnauthorizedAccessException("Voce nao tem permissao. Por favor, faca login.");
         }
         List<Disciplina> lista = this.disciplinaService.findAllByLikes();
+        lista.sort(new DisciplinaComparator<Disciplina>());
         return new ResponseEntity<>(lista, HttpStatus.OK);
     }
 

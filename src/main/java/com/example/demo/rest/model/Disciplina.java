@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @NoArgsConstructor
-public class Disciplina {
+public class Disciplina implements Comparable<Disciplina>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,4 +57,14 @@ public class Disciplina {
     public void atualizaQtd() {
         this.qtdLikes = this.likes.size();
     }
+
+	@Override
+	public int compareTo(Disciplina o) {
+		if (this.qtdLikes > o.qtdLikes) {
+			return 1;
+		} else if (this.qtdLikes < o.qtdLikes) {
+			return -1;
+		}
+		return 0;
+	}
 }
