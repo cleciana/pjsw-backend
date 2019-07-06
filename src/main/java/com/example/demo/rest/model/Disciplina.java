@@ -67,4 +67,8 @@ public class Disciplina implements Comparable<Disciplina>{
 		}
 		return 0;
 	}
+	
+	public HashSet<String> getLikes() {
+		return this.likes;
+	}
 }

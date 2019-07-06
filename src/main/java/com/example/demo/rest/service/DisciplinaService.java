@@ -48,7 +48,15 @@ public class DisciplinaService {
     }
     
     public List<Disciplina> findAllByLikes() {
-        return this.disciplinaDao.findAll(new Sort(Sort.Direction.ASC, "qtdLikes"));
+        List<Disciplina> list = this.disciplinaDao.findAll(new Sort(Sort.Direction.DESC, "qtdLikes"));
+        for (Disciplina d : list) {
+            for (String n : d.getLikes()) {
+                if (n == null) {
+                    d.getLikes().remove(n);
+                }
+            }
+        }
+        return list;
     }
 
     public List<Disciplina> findByComments() {
