@@ -5,6 +5,7 @@ package com.example.demo.rest.dto;
  */
 public class ComentarioDTO {
 
+	private boolean deleted;
     private String username;
 	private String content;
 	private int id;

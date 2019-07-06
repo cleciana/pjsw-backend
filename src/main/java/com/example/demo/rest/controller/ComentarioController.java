@@ -100,7 +100,7 @@ public class ComentarioController {
         List<ComentarioDTO> cDtos = new ArrayList<>();
         List<Comentario> comentarios = this.comentarioService.findByDisciplinaId();
         for (Comentario c : comentarios) {
-            if (c.getDisciplinaId() == id) {
+            if (c.getDisciplinaId() == id && c.wasDeletd() == false) {
                 cDtos.add(mapper.map(c, ComentarioDTO.class));
             }
         }
