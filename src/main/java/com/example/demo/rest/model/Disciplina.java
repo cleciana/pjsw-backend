@@ -36,14 +36,14 @@ public class Disciplina {
      * Adiciona um like a disciplina
      */
 	public void like(String name) {
-        if (this.likes == null)
-         this.likes = new HashSet<>();
-
-        if (this.likes.contains(name)) 
+        if (this.likes == null) {
+            this.likes = new HashSet<>();
+        }
+        if (this.likes.contains(name)) {
             this.likes.remove(name);
             this.deuLike(name);
 
-        else {
+        } else {
             this.likes.add(name);
         }
 	}
