@@ -122,6 +122,6 @@ public class DisciplinaController {
         }
         disciplina2.like(userEmail);
         Disciplina disciplinaa = this.disciplinaService.update(disciplina2);
-        return new ResponseEntity<DisciplinaDTO>(mapper.map(disciplinaa, DisciplinaDTO.class), HttpStatus.OK);
+        return new ResponseEntity<DisciplinaDTO>(mapper.map(this.disciplinaService.findById(id), DisciplinaDTO.class), HttpStatus.OK);
     }
 }
