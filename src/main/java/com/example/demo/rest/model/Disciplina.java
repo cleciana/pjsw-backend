@@ -22,7 +22,7 @@ public class Disciplina {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private HashSet<String> likes;
+    private HashSet<String> likes = new HashSet<>();
     private String description;
     private Boolean deuLike;
     private Integer qtdLikes;
