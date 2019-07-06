@@ -44,9 +44,9 @@ public class ComentarioController {
     
     //@CrossOrigin
     @ApiOperation(value = "Adiciona um comentario a disciplina identificada por id")
-    @PostMapping(value = "/")
+    @PostMapping(value = "/{id}")
     @ResponseBody
-    public ResponseEntity<ComentarioDTO> createComentario(@RequestHeader("Authorization") String token, @RequestBody int id, @RequestBody Comentario comentario) {
+    public ResponseEntity<ComentarioDTO> createComentario(@RequestHeader("Authorization") String token, @PathVariable int id, @RequestBody Comentario comentario) {
         String userString = this.login.getTokenEmail(token);
 
         if (userString == "") {
@@ -64,9 +64,9 @@ public class ComentarioController {
 
     //@CrossOrigin
     @ApiOperation(value = "Marca um comentario como deletado")
-    @DeleteMapping(value = "/")
+    @DeleteMapping(value = "/{id}")
     @ResponseBody
-    public ResponseEntity<ComentarioDTO> delete(@RequestBody int id) {
+    public ResponseEntity<ComentarioDTO> delete(@PathVariable int id) {
         Comentario com = this.comentarioService.findById(id);
         if (com == null) throw new CommentNotFoundException("O Comentario nao existe.");
         com.setDeleted(true);
@@ -78,7 +78,7 @@ public class ComentarioController {
     @ApiOperation(value = "Retorna um objeto que representa um comentario, caso o comentario tenha sido deletado anteriormente, retorna um objeto com texto conteúdo vazio.")
     @GetMapping(value = "/{id}")
     @ResponseBody
-    public ResponseEntity<ComentarioDTO> getComentario(@RequestBody int id) {
+    public ResponseEntity<ComentarioDTO> getComentario(@PathVariable int id) {
         Comentario com = this.comentarioService.findById(id);
         if (com == null) {
             throw new CommentNotFoundException("Desculpe, este comentario não existe.");
@@ -93,9 +93,9 @@ public class ComentarioController {
 
     //@CrossOrigin
     @ApiOperation(value = "Busca e retorna todos os comentarios de uma determinada disciplina")
-    @GetMapping(value = "/")
+    @GetMapping(value = "/{id}-all")
     @ResponseBody
-    public ResponseEntity<List<ComentarioDTO>> getComentarios(@RequestBody int id) {
+    public ResponseEntity<List<ComentarioDTO>> getComentarios(@PathVariable int id) {
         List<ComentarioDTO> cDtos = new ArrayList<>();
         List<Comentario> comentarios = this.comentarioService.findByDisciplinaId();
         for (Comentario c : comentarios) {
