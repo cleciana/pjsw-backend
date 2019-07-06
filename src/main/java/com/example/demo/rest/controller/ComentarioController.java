@@ -60,7 +60,7 @@ public class ComentarioController {
         if (com == null) {
             throw new InternalError("Ops, algo deu errado.");
         }
-        return new ResponseEntity<ComentarioDTO>(mapper.map(comentario, ComentarioDTO.class), HttpStatus.CREATED);
+        return new ResponseEntity<ComentarioDTO>(mapper.map(com, ComentarioDTO.class), HttpStatus.CREATED);
     }
 
     //@CrossOrigin
@@ -100,7 +100,7 @@ public class ComentarioController {
         List<ComentarioDTO> cDtos = new ArrayList<>();
         List<Comentario> comentarios = this.comentarioService.findByDisciplinaId();
         for (Comentario c : comentarios) {
-            if (c.getDisciplinaId() == id && c.wasDeletd() == false) {
+            if (c.getDisciplinaId() == id && c.wasDeletd() == false && c.getUsername() != null) {
                 cDtos.add(mapper.map(c, ComentarioDTO.class));
             }
         }
