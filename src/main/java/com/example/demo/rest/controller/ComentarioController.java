@@ -98,7 +98,7 @@ public class ComentarioController {
     @ResponseBody
     public ResponseEntity<List<ComentarioDTO>> getComentarios(@PathVariable int id) {
         List<ComentarioDTO> cDtos = new ArrayList<>();
-        List<Comentario> comentarios = this.comentarioService.findByDisciplinaId(id);
+        List<Comentario> comentarios = this.comentarioService.findByDisciplinaId();
         for (Comentario c : comentarios) {
             cDtos.add(mapper.map(c, ComentarioDTO.class));
         }

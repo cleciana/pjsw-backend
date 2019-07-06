@@ -31,7 +31,7 @@ public class ComentarioService {
 		return this.comentarioDao.save(com);
 	}
 
-    public List<Comentario> findByDisciplinaId(int id) {
-        return this.comentarioDao.findAll(id);
+    public List<Comentario> findByDisciplinaId() {
+        return this.comentarioDao.findAll();
     }
 }
