@@ -100,7 +100,9 @@ public class ComentarioController {
         List<ComentarioDTO> cDtos = new ArrayList<>();
         List<Comentario> comentarios = this.comentarioService.findByDisciplinaId();
         for (Comentario c : comentarios) {
-            cDtos.add(mapper.map(c, ComentarioDTO.class));
+            if (c.getId() == id) {
+                cDtos.add(mapper.map(c, ComentarioDTO.class));
+            }
         }
         return new ResponseEntity<>(cDtos, HttpStatus.OK);
     }
