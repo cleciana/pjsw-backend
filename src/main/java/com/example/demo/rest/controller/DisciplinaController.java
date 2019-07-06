@@ -94,7 +94,7 @@ public class DisciplinaController {
 
     //@CrossOrigin
     @ApiOperation(value = "Busca e retorna uma listagem de disciplinas ordenadas por quantidade de likes, de forma decrescente.")
-    @GetMapping(value = "/1")
+    @GetMapping(value = "/rank")
     @ResponseBody
     public ResponseEntity<List<Disciplina>> rank1(@RequestHeader("Authorization") String token) {
         String userMail = loginController.getTokenEmail(token);
@@ -121,7 +121,7 @@ public class DisciplinaController {
             throw new ClassNotRegisteredException("Disciplina nao existe.");
         }
         disciplina2.like(userEmail);
-        Disciplina disciplinaa = this.disciplinaService.findById(id);
+        Disciplina disciplinaa = this.disciplinaService.update(disciplina2);
         return new ResponseEntity<DisciplinaDTO>(mapper.map(disciplinaa, DisciplinaDTO.class), HttpStatus.OK);
     }
 }
