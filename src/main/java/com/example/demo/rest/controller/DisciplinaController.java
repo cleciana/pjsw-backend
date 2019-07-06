@@ -96,7 +96,7 @@ public class DisciplinaController {
         if (userMail == "") {
             throw new UnauthorizedAccessException("Voce nao tem permissao. Por favor, faca login.");
         }
-        List<Disciplina> lista = this.disciplinaService.findAllByLikes();
+        List<Disciplina> lista = this.disciplinaService.findDisciplinas();
         return new ResponseEntity<>(lista, HttpStatus.OK);
     }
 

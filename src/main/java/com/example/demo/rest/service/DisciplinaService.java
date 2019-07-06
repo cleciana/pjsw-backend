@@ -40,7 +40,7 @@ public class DisciplinaService {
         return this.disciplinaDao.save(disciplina);
     }
     
-    public List<Disciplina> findAllByLikes() {
+    public List<Disciplina> findDisciplinas() {
         List<Disciplina> list = this.disciplinaDao.findAll();
 
         return this.sortDisciplinas(list);
@@ -48,7 +48,7 @@ public class DisciplinaService {
 
     private List<Disciplina> sortDisciplinas(List<Disciplina> list) {
         Disciplina[] disciplinas = this.meuToArray(list, list.size());
-        this.likeSort(disciplinas, 0, disciplinas.length-1);
+        this.likeSort(disciplinas, 0, list.size());
 
         List<Disciplina> nova = new ArrayList<>();
         for (int i = disciplinas.length-1; i >= 0; i--) {
@@ -59,20 +59,18 @@ public class DisciplinaService {
 
     private Disciplina[] meuToArray(List<Disciplina> list, int n) {
         Disciplina[] array = new Disciplina[n];
-        int i = 0;
-        for (Disciplina d : list) {
-            array[i] = d;
-            i++;
+        for (int i = 0; i < n; i++) {
+            array[i] = list.get(i);
         }
         return array;
     }
 
     private void likeSort(Disciplina[] disciplinas, int left, int right) {
         if (left < right) {
-            int partitionIndex = partition(disciplinas, left, right);
+            int index = partition(disciplinas, left, right);
 
-            likeSort(disciplinas, left, partitionIndex - 1);
-            likeSort(disciplinas, partitionIndex + 1, right);
+            likeSort(disciplinas, left, index - 1);
+            likeSort(disciplinas, index + 1, right);
         }
     }
 
@@ -81,7 +79,7 @@ public class DisciplinaService {
         int i = left -1;
 
         for (int j = left; j < right; j++) {
-            if (disciplinas[j].getQtdLikes() <= pivo.getQtdLikes()) {
+            if (disciplinas[j].getLikes().size() <= pivo.getLikes().size()) {
                 i++;
                 Disciplina aux = disciplinas[i];
                 disciplinas[i] = disciplinas[j];
