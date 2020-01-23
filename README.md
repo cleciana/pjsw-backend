@@ -10,3 +10,5 @@
 Link do app no heroku: https://pjsw.herokuapp.com/
 
 Link da Documentação gerada com Swagger: https://pjsw.herokuapp.com/api/swagger-ui.html
+
+Link para página do projeto: https://allemoura.github.io/Psoft-projeto-frontend/ 
